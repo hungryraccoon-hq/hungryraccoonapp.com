@@ -13,3 +13,12 @@
 .archive-device{background:#d44c2a}
 .archive-screen img{transform:translateY(-38%)}
 .food-photo figcaption{display:none}
+
+/* Ticker: scrolls right to left. Two identical groups, moved left by exactly one group, loop without a seam. */
+.ticker>.ticker-track{display:flex;width:max-content;gap:0;justify-content:flex-start;animation:ticker-scroll 45s linear infinite}
+.ticker:hover>.ticker-track{animation-play-state:paused}
+.ticker-group{display:flex;align-items:center;gap:42px;padding-right:42px;flex-shrink:0}
+.ticker-group span{font-size:inherit}
+@keyframes ticker-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:700px){.ticker-group{gap:24px;padding-right:24px}.ticker>.ticker-track{animation-duration:35s}}
+@media(prefers-reduced-motion:reduce){.ticker>.ticker-track{animation:none}}
