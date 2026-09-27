@@ -18,9 +18,9 @@ Open `index.html` in a browser, or run `python3 -m http.server` here and visit h
 | `fonts.css`, `assets/font-*.ttf` | DM Sans and Fraunces, from Google Fonts (SIL Open Font License) |
 | `assets/logo.png` | The raccoon logo |
 | `assets/food.jpg` | AI-generated illustrative food image, not a photo of a real restaurant's dish |
-| `assets/earlier-home.png` | Screenshot of an earlier app design (14 September 2026), shown in the phone and labelled as an earlier preview |
+| `assets/app-home.jpg` | The native app's home screen, captured from the iOS Simulator on 27 September 2026 and edited: the cuisine tiles and two cards carry photos taken from the 14 September web screenshot, the For you rail is relabelled Popular with the two places (and their ratings) that led Popular in that screenshot, the Expo dev-tools button is painted out, and the clock reads 9:41 |
 | `CNAME` | Tells GitHub Pages the custom domain |
 
 ## Known issue
 
-`assets/earlier-home.png` contains restaurant photos that came from the Google Places API. Google's terms restrict storing and republishing Places photos, and the app stopped serving them for that reason (decision D33 in the app repo). The owner chose to keep this image for now. Replace it with a screenshot that has no Google photos before any wider launch.
+`assets/app-home.jpg` contains restaurant photos that came from the Google Places API (reused from the earlier screenshot it replaced). Google's terms restrict storing and republishing Places photos, and the app stopped serving them for that reason (decision D33 in the app repo). The owner chose to keep this image for now. Replace them with the project's own photographs before any wider launch.
