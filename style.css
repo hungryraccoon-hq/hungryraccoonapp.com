@@ -55,3 +55,6 @@ html{scroll-behavior:smooth}
 .feature-list .planned{margin-bottom:14px}
 .closing a:not(.back-top){color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 .feature-list .list-preview{margin-top:20px}
+/* One divider between feature cards: the example list keeps its top rule only. */
+.feature-list .list-preview{border-bottom:0;padding-bottom:0}
+.feature-list .list-preview{border:0;padding:14px 16px;background:var(--panel);border-radius:12px}
