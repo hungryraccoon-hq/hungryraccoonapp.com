@@ -8,18 +8,18 @@
 .ticker svg{width:19px;height:19px;align-self:center}
 
 .brand-image{width:48px;height:48px;border-radius:12px;margin-right:12px;object-fit:cover}.brand{letter-spacing:-.035em}.archive-device{border:7px solid #181818;border-radius:43px;background:#cf4925;box-shadow:inset 0 0 0 1px #777;aspect-ratio:262/540}.iphone-status{height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;color:#fff;font-size:11px;font-weight:700}.iphone-status svg{width:18px;height:15px}
-.iphone-status .status-icons{display:flex;align-items:center;gap:4px}
-.iphone-status .status-icons svg{height:9px;fill:currentColor;stroke:none}
-.iphone-status .si-signal{width:14px}
-.iphone-status .si-wifi{width:12.5px}
+.iphone-status .status-icons{display:flex;align-items:center;gap:3.5px}
+.iphone-status .status-icons svg{height:7.5px;fill:currentColor;stroke:none}
+.iphone-status .si-signal{width:11.5px}
+.iphone-status .si-wifi{width:10.5px}
 .iphone-status .si-wifi .arc{fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round}
-.iphone-status .si-battery{width:21px}
+.iphone-status .si-battery{width:16.5px}
 .iphone-status .si-battery .shell{fill:none;stroke:currentColor;stroke-width:1.1;opacity:.45}
-.iphone-status .si-battery .nub{opacity:.45}.island{width:80px;height:23px;background:#111;border-radius:20px;position:absolute;left:50%;transform:translateX(-50%);top:8px}.archive-screen{position:absolute;top:40px;left:0;right:0;bottom:0;background:var(--paper);overflow:hidden}.archive-screen img{position:absolute;width:363.636%;height:auto;max-width:none;left:-8.556%;top:0;transform:translateY(-34.7%);margin:0}.home-indicator{position:absolute;bottom:8px;left:33%;width:34%;height:4px;background:var(--ink);border-radius:4px}.footer .brand:before{content:"";width:36px;height:36px;background:url('assets/logo.png') center/cover;border-radius:9px;margin-right:10px}@media(max-width:700px){.header .brand{font-size:23px}.brand-image{width:39px;height:39px;margin-right:8px}.header nav .nav-status{font-size:12px}.archive-device{border-radius:38px}.device-figure>figcaption{font-size:10px}}@media(max-width:360px){.header .brand{font-size:20px}.brand-image{width:33px;height:33px}}
+.iphone-status .si-battery .nub{opacity:.45}.island{width:80px;height:23px;background:#111;border-radius:20px;position:absolute;left:50%;transform:translateX(-50%);top:8px}.archive-screen{position:absolute;top:40px;left:0;right:0;bottom:0;background:var(--paper);overflow:hidden}.archive-screen img{position:absolute;width:375%;height:auto;max-width:none;left:-8.83%;top:0;transform:translateY(-34.7%);margin:0}.home-indicator{position:absolute;bottom:8px;left:33%;width:34%;height:4px;background:var(--ink);border-radius:4px}.footer .brand:before{content:"";width:36px;height:36px;background:url('assets/logo.png') center/cover;border-radius:9px;margin-right:10px}@media(max-width:700px){.header .brand{font-size:23px}.brand-image{width:39px;height:39px;margin-right:8px}.header nav .nav-status{font-size:12px}.archive-device{border-radius:38px}.device-figure>figcaption{font-size:10px}}@media(max-width:360px){.header .brand{font-size:20px}.brand-image{width:33px;height:33px}}
 
 /* Crop below the archived mockup corners; the iPhone owns the outer frame. */
 .archive-device{background:#d44c2a}
-.archive-screen img{transform:translateY(-38%)}
+.archive-screen img{transform:translateY(-37%)}
 .food-photo figcaption{display:none}
 
 /* Ticker: scrolls right to left. Two identical groups, moved left by exactly one group, loop without a seam. */
@@ -66,3 +66,9 @@ html{scroll-behavior:smooth}
 /* One divider between feature cards: the example list keeps its top rule only. */
 .feature-list .list-preview{border-bottom:0;padding-bottom:0}
 .feature-list .list-preview{border:0;padding:14px 16px;background:var(--panel);border-radius:12px}
+
+.tabbar{position:absolute;left:0;right:0;bottom:0;aspect-ratio:248/56;background:var(--white);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:flex-start;padding:5px 6px 0}
+.tabbar span{display:flex;flex-direction:column;align-items:center;gap:1.5px;font-size:6.5px;font-weight:600;line-height:1.2;color:var(--muted);width:25%}
+.tabbar span.on{color:var(--orange)}
+.tabbar svg{width:13px;height:13px;stroke-width:1.9}
+.archive-device .home-indicator{z-index:1}
