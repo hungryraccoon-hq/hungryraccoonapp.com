@@ -1,85 +1,214 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>A list on HungryRaccoon</title>
-<meta name="description" content="A list of places to eat in Phnom Penh, shared from HungryRaccoon.">
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#b8401e">
-<link rel="icon" href="/assets/logo.png"><link rel="apple-touch-icon" href="/assets/logo.png">
-<link rel="stylesheet" href="/fonts.css"><link rel="stylesheet" href="/style.css">
-<style>
-.shared{max-width:760px;padding-top:56px;padding-bottom:72px}
-.shared .by{color:var(--muted);font-size:15px;margin-top:10px}
-.shared .desc{font-size:18px;line-height:1.6;margin-top:16px;max-width:60ch}
-.shared h1{font-size:clamp(40px,6vw,60px)}
-.places{list-style:none;margin:32px 0 0;padding:0;border-top:1px solid var(--line)}
-.places li{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
-.places .n{font-family:Fraunces,serif;font-weight:700;font-size:22px;color:var(--accent);min-width:28px}
-.places .name{font-weight:600;font-size:17px}
-.places .meta{color:var(--muted);font-size:14px;margin-top:2px}
-.places .note{font-family:Fraunces,serif;color:var(--accent);margin-top:6px}
-.get{background:var(--panel);border-radius:20px;padding:28px;margin-top:40px}
-.get h2{font-size:30px}.get p{color:var(--muted);margin-top:10px}
-.get .follow{display:flex;gap:18px;margin-top:14px;font-weight:600}.get .follow a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
-.state{color:var(--muted);font-size:17px;margin-top:14px}
-</style></head>
-<body><a class="skip" href="#main">Skip to content</a><header class="header wrap"><a href="/" class="brand" aria-label="HungryRaccoon home"><img class="brand-image" src="/assets/logo.png" alt="" width="48" height="48">HungryRaccoon</a><nav aria-label="Main navigation"><a href="/#app">How it works</a><a href="/#next">Already cooking</a><a class="nav-status" href="/#launch">In the making</a></nav></header>
-<main id="main" class="shared wrap"><h1 id="title">Loading…</h1><p id="by" class="by"></p><p id="desc" class="desc" hidden></p><p id="state" class="state" hidden></p><ol id="places" class="places" hidden></ol>
-<section class="get"><h2>Make your own lists</h2><p>HungryRaccoon is a social food diary for Phnom Penh: rate places, keep lists and share them. It isn't out yet. Follow along while it simmers.</p>
-<div class="follow"><a href="https://www.instagram.com/hungryraccoonapp/" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@hungryraccoonapp" rel="noopener">TikTok</a><a href="/">About the app</a></div></section>
-</main>
-<footer class="footer site-footer wrap"><div class="footer-brand"><a class="brand" href="/">HungryRaccoon</a><span class="footer-tag">Made for Phnom Penh. And your appetite.</span></div><nav class="footer-links" aria-label="Footer"><a href="/privacy.html">Privacy policy</a><a href="/terms.html">Terms of service</a><a href="mailto:hungryraccoonapp@gmail.com">Contact us</a></nav><div class="footer-follow"><a href="https://www.instagram.com/hungryraccoonapp/" target="_blank" rel="noopener" aria-label="HungryRaccoon on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg></a><a href="https://www.facebook.com/profile.php?id=61594898428255" target="_blank" rel="noopener" aria-label="HungryRaccoon on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3.5h-2a3.5 3.5 0 0 0-3.5 3.5v13.5M7 10h8"/></svg></a><a href="https://www.linkedin.com/company/hungryraccoon/" target="_blank" rel="noopener" aria-label="HungryRaccoon on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V17M8 7.2v.1M12 17v-3.8c0-1.5 1-2.7 2.4-2.7s2.1 1 2.1 2.6V17M12 10.5V17"/></svg></a><a href="https://www.tiktok.com/@hungryraccoonapp" target="_blank" rel="noopener" aria-label="HungryRaccoon on TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.5v11a3.75 3.75 0 1 1-3.75-3.75"/><path d="M14 3.5c.35 2.6 2.15 4.35 4.75 4.6"/></svg></a></div><span class="footer-copy">© 2026 HungryRaccoon</span></footer>
-<script>
-// Shared lists (D40): GitHub Pages serves this page for any path it doesn't
-// have, so /l/{shareId}/{slug} lands here. The list is read with the PUBLIC
-// anon key; row-level security returns it only if its owner made it public.
-// Everything user-written is inserted as text, never as HTML.
-(function () {
-  var SUPABASE = "https://mbuxxkchudopmpihrakk.supabase.co";
-  var ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1idXh4a2NodWRvcG1waWhyYWtrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgzNTUxOTUsImV4cCI6MjEwMzkzMTE5NX0.9V1WYNlMkm0v8Fg3Z9Lj7Pi_QzfdrVqCKk1bmOCUWTs";
-  var $ = function (id) { return document.getElementById(id); };
-  function slugify(t) {
-    var s = t.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/['’]/g, "")
-      .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60).replace(/-+$/, "");
-    return s || "list";
-  }
-  function show(title, message) {
-    $("title").textContent = title; document.title = title + " · HungryRaccoon";
-    if (message) { $("state").textContent = message; $("state").hidden = false; }
-  }
-  var m = /^\/l\/([0-9A-Za-z]{8})(?:\/[^/]*)?\/?$/.exec(location.pathname);
-  if (!m) { show("Page not found", "That page doesn't exist. Head back to the home page."); return; }
-  var id = m[1];
-  var select = "title,description,share_id,profiles!lists_user_id_fkey(username,display_name),list_restaurants(note,position,restaurants(name,district,cuisine_type))";
-  fetch(SUPABASE + "/rest/v1/lists?select=" + encodeURIComponent(select) + "&share_id=eq." + id, { headers: { apikey: ANON, Authorization: "Bearer " + ANON } })
-    .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
-    .then(function (rows) {
-      var l = rows && rows[0];
-      // Private and missing read the same, so this page never confirms a list exists.
-      if (!l) { show("This list is private or doesn't exist", "Its owner may have made it private."); return; }
-      show(l.title);
-      var slug = slugify(l.title), want = "/l/" + id + "/" + slug;
-      if (location.pathname !== want) history.replaceState(null, "", want);
-      var owner = l.profiles || {};
-      var who = owner.display_name || (owner.username ? "@" + owner.username : "");
-      var items = (l.list_restaurants || []).slice().sort(function (a, b) { return a.position - b.position; });
-      $("by").textContent = (who ? "A list by " + who + " · " : "") + items.length + (items.length === 1 ? " place" : " places");
-      if (l.description) { $("desc").textContent = l.description; $("desc").hidden = false; }
-      var ol = $("places");
-      items.forEach(function (it, i) {
-        var r = it.restaurants || {};
-        var cuisine = (r.cuisine_type || []).filter(function (c) { return c !== "International"; })[0] || (r.cuisine_type || [])[0] || "";
-        var li = document.createElement("li");
-        var n = document.createElement("span"); n.className = "n"; n.textContent = String(i + 1);
-        var body = document.createElement("div");
-        var name = document.createElement("div"); name.className = "name"; name.textContent = r.name || "A place";
-        var meta = document.createElement("div"); meta.className = "meta"; meta.textContent = [cuisine, r.district].filter(Boolean).join(" · ");
-        body.appendChild(name); body.appendChild(meta);
-        if (it.note) { var note = document.createElement("div"); note.className = "note"; note.textContent = "“" + it.note + "”"; body.appendChild(note); }
-        li.appendChild(n); li.appendChild(body); ol.appendChild(li);
-      });
-      if (items.length) ol.hidden = false;
-    })
-    .catch(function () { show("Couldn't load this list", "Check your connection and try again."); });
-})();
-</script>
-</body></html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>A list on HungryRaccoon</title>
+  <meta name="description" content="A list of places to eat in Phnom Penh, shared from HungryRaccoon.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#b8401e">
+  <link rel="icon" href="/assets/logo.png">
+  <link rel="apple-touch-icon" href="/assets/logo.png">
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .shared {
+      max-width: 760px;
+      padding-top: 56px;
+      padding-bottom: 72px
+    }
+
+    .shared .by {
+      color: var(--muted);
+      font-size: 15px;
+      margin-top: 10px
+    }
+
+    .shared .desc {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-top: 16px;
+      max-width: 60ch
+    }
+
+    .shared h1 {
+      font-size: clamp(40px, 6vw, 60px)
+    }
+
+    .places {
+      list-style: none;
+      margin: 32px 0 0;
+      padding: 0;
+      border-top: 1px solid var(--line)
+    }
+
+    .places li {
+      display: flex;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .places .n {
+      font-family: Fraunces, serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--accent);
+      min-width: 28px
+    }
+
+    .places .name {
+      font-weight: 600;
+      font-size: 17px
+    }
+
+    .places .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 2px
+    }
+
+    .places .note {
+      font-family: Fraunces, serif;
+      color: var(--accent);
+      margin-top: 6px
+    }
+
+    .get {
+      background: var(--panel);
+      border-radius: 20px;
+      padding: 28px;
+      margin-top: 40px
+    }
+
+    .get h2 {
+      font-size: 30px
+    }
+
+    .get p {
+      color: var(--muted);
+      margin-top: 10px
+    }
+
+    .get .follow {
+      display: flex;
+      gap: 18px;
+      margin-top: 14px;
+      font-weight: 600
+    }
+
+    .get .follow a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px
+    }
+
+    .state {
+      color: var(--muted);
+      font-size: 17px;
+      margin-top: 14px
+    }
+  </style>
+</head>
+
+<body><a class="skip" href="#main">Skip to content</a>
+  <header class="header wrap"><a href="/" class="brand" aria-label="HungryRaccoon home"><img class="brand-image"
+        src="/assets/logo.png" alt="" width="48" height="48">HungryRaccoon</a>
+    <nav aria-label="Main navigation"><a href="/#app">How it works</a><a href="/#next">Already cooking</a><a
+        class="nav-status" href="/#launch">In the making</a></nav>
+  </header>
+  <main id="main" class="shared wrap">
+    <h1 id="title">Loading…</h1>
+    <p id="by" class="by"></p>
+    <p id="desc" class="desc" hidden></p>
+    <p id="state" class="state" hidden></p>
+    <ol id="places" class="places" hidden></ol>
+    <section class="get">
+      <h2>Make your own lists</h2>
+      <p>HungryRaccoon is a social food diary for Phnom Penh: rate places, keep lists and share them. It isn't out yet.
+        Follow along while it simmers.</p>
+      <div class="follow"><a href="https://www.instagram.com/hungryraccoonapp/" rel="noopener">Instagram</a><a
+          href="https://www.tiktok.com/@hungryraccoonapp" rel="noopener">TikTok</a><a href="/">About the app</a></div>
+    </section>
+  </main>
+  <footer class="footer site-footer wrap">
+    <div class="footer-brand"><a class="brand" href="/">HungryRaccoon</a><span class="footer-tag">Made for Phnom Penh.
+        And your appetite.</span></div>
+    <nav class="footer-links" aria-label="Footer"><a href="/privacy.html">Privacy policy</a><a href="/terms.html">Terms
+        of service</a><a href="mailto:hungryraccoonapp@gmail.com">Contact us</a></nav>
+    <div class="footer-follow"><a href="https://www.instagram.com/hungryraccoonapp/" target="_blank" rel="noopener"
+        aria-label="HungryRaccoon on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r=".6" fill="currentColor" />
+        </svg></a><a href="https://www.facebook.com/profile.php?id=61594898428255" target="_blank" rel="noopener"
+        aria-label="HungryRaccoon on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15.5 3.5h-2a3.5 3.5 0 0 0-3.5 3.5v13.5M7 10h8" />
+        </svg></a><a href="https://www.linkedin.com/company/hungryraccoon/" target="_blank" rel="noopener"
+        aria-label="HungryRaccoon on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="3" />
+          <path d="M8 10.5V17M8 7.2v.1M12 17v-3.8c0-1.5 1-2.7 2.4-2.7s2.1 1 2.1 2.6V17M12 10.5V17" />
+        </svg></a><a href="https://www.tiktok.com/@hungryraccoonapp" target="_blank" rel="noopener"
+        aria-label="HungryRaccoon on TikTok"><svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M14 3.5v11a3.75 3.75 0 1 1-3.75-3.75" />
+          <path d="M14 3.5c.35 2.6 2.15 4.35 4.75 4.6" />
+        </svg></a></div><span class="footer-copy">© 2026 HungryRaccoon</span>
+  </footer>
+  <script>
+    // Shared lists (D40): GitHub Pages serves this page for any path it doesn't
+    // have, so /l/{shareId}/{slug} lands here. The list is read with the PUBLIC
+    // anon key; row-level security returns it only if its owner made it public.
+    // Everything user-written is inserted as text, never as HTML.
+    (function () {
+      var SUPABASE = "https://mbuxxkchudopmpihrakk.supabase.co";
+      var ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1idXh4a2NodWRvcG1waWhyYWtrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgzNTUxOTUsImV4cCI6MjEwMzkzMTE5NX0.9V1WYNlMkm0v8Fg3Z9Lj7Pi_QzfdrVqCKk1bmOCUWTs";
+      var $ = function (id) { return document.getElementById(id); };
+      function slugify(t) {
+        var s = t.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/['’]/g, "")
+          .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60).replace(/-+$/, "");
+        return s || "list";
+      }
+      function show(title, message) {
+        $("title").textContent = title; document.title = title + " · HungryRaccoon";
+        if (message) { $("state").textContent = message; $("state").hidden = false; }
+      }
+      var m = /^\/l\/([0-9A-Za-z]{8})(?:\/[^/]*)?\/?$/.exec(location.pathname);
+      if (!m) { show("Page not found", "That page doesn't exist. Head back to the home page."); return; }
+      var id = m[1];
+      var select = "title,description,share_id,profiles!lists_user_id_fkey(username,display_name),list_restaurants(note,position,restaurants(name,district,cuisine_type))";
+      fetch(SUPABASE + "/rest/v1/lists?select=" + encodeURIComponent(select) + "&share_id=eq." + id, { headers: { apikey: ANON, Authorization: "Bearer " + ANON } })
+        .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+        .then(function (rows) {
+          var l = rows && rows[0];
+          // Private and missing read the same, so this page never confirms a list exists.
+          if (!l) { show("This list is private or doesn't exist", "Its owner may have made it private."); return; }
+          show(l.title);
+          var slug = slugify(l.title), want = "/l/" + id + "/" + slug;
+          if (location.pathname !== want) history.replaceState(null, "", want);
+          var owner = l.profiles || {};
+          var who = owner.display_name || (owner.username ? "@" + owner.username : "");
+          var items = (l.list_restaurants || []).slice().sort(function (a, b) { return a.position - b.position; });
+          $("by").textContent = (who ? "A list by " + who + " · " : "") + items.length + (items.length === 1 ? " place" : " places");
+          if (l.description) { $("desc").textContent = l.description; $("desc").hidden = false; }
+          var ol = $("places");
+          items.forEach(function (it, i) {
+            var r = it.restaurants || {};
+            var cuisine = (r.cuisine_type || []).filter(function (c) { return c !== "International"; })[0] || (r.cuisine_type || [])[0] || "";
+            var li = document.createElement("li");
+            var n = document.createElement("span"); n.className = "n"; n.textContent = String(i + 1);
+            var body = document.createElement("div");
+            var name = document.createElement("div"); name.className = "name"; name.textContent = r.name || "A place";
+            var meta = document.createElement("div"); meta.className = "meta"; meta.textContent = [cuisine, r.district].filter(Boolean).join(" · ");
+            body.appendChild(name); body.appendChild(meta);
+            if (it.note) { var note = document.createElement("div"); note.className = "note"; note.textContent = "“" + it.note + "”"; body.appendChild(note); }
+            li.appendChild(n); li.appendChild(body); ol.appendChild(li);
+          });
+          if (items.length) ol.hidden = false;
+        })
+        .catch(function () { show("Couldn't load this list", "Check your connection and try again."); });
+    })();
+  </script>
+</body>
+
+</html>

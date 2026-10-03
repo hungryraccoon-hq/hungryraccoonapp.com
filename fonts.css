@@ -5,6 +5,7 @@
   font-display: swap;
   src: url(assets/font-0.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'DM Sans';
   font-style: normal;
@@ -12,6 +13,7 @@
   font-display: swap;
   src: url(assets/font-1.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'DM Sans';
   font-style: normal;
@@ -19,6 +21,7 @@
   font-display: swap;
   src: url(assets/font-2.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'DM Sans';
   font-style: normal;
@@ -26,6 +29,7 @@
   font-display: swap;
   src: url(assets/font-3.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'Fraunces';
   font-style: normal;
@@ -33,6 +37,7 @@
   font-display: swap;
   src: url(assets/font-4.ttf) format('truetype');
 }
+
 @font-face {
   font-family: 'Fraunces';
   font-style: normal;
