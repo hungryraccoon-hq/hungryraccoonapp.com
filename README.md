@@ -19,7 +19,7 @@ Open `index.html` in a browser, or run `python3 -m http.server` here and visit h
 | `assets/logo.png` | The raccoon logo |
 | `assets/food.jpg` | AI-generated illustrative food image, not a photo of a real restaurant's dish |
 | `assets/app-home.jpg` | The native app's home screen, captured from the iOS Simulator on 27 September 2026 and edited: the cuisine tiles and two cards carry photos taken from the 14 September web screenshot, the For you rail is relabelled Popular with the two places (and their ratings) that led Popular in that screenshot, the Expo dev-tools button is painted out, and the clock reads 9:41 |
-| `assets/app-welcome.jpg`, `assets/app-areas.jpg`, `assets/app-tastes.jpg` | October 3, 2026 simulator screenshots supplied by the owner, edited with image generation to remove the blue development overlay. Used for the welcome and onboarding previews. |
+| `assets/app-welcome.jpg`, `assets/app-areas.jpg`, `assets/app-tastes.jpg` | October 3, 2026 simulator screenshots supplied by the owner, edited with image generation to remove the blue development overlay and set the time to 9:41. The area screen uses the later capture with Chamkarmon and Russei Keo selected. Used for the welcome and onboarding previews. |
 | `CNAME` | Tells GitHub Pages the custom domain |
 
 ## October 2026 website refresh
@@ -29,3 +29,7 @@ The homepage now uses the welcome screen and adds neighbourhood and cuisine prev
 ## Archived asset note
 
 The old `assets/app-home.jpg` is no longer displayed on the homepage. It contains restaurant photos that came from the Google Places API (reused from the earlier screenshot it replaced). Google's terms restrict storing and republishing Places photos, and the app stopped serving them for that reason (decision D33 in the app repo). The owner chose to keep this image for now. Replace them with the project's own photographs before any wider launch.
+
+## Social icons
+
+The footer uses locally hosted brand SVGs from [Font Awesome Free 6](https://github.com/FortAwesome/Font-Awesome/tree/6.x/svgs/brands), replacing hand-drawn approximations. License and attribution are included in `assets/social/LICENSE.txt`.
