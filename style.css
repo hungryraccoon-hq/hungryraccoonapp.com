@@ -1276,7 +1276,6 @@ html {
 }
 @media (max-width: 700px) {
     .onboarding { grid-template-columns: 1fr; gap: 40px; padding-block: 64px; }
-    .onboarding h2 br:first-child { display: none; }
     .onboarding h2 { max-width: 12ch; }
     .onboarding-copy > p { max-width: 42ch; }
     .onboarding-screens { max-width: 520px; margin-inline: auto; }
@@ -1303,3 +1302,40 @@ html {
     pointer-events: none;
 }
 .footer-follow img { display: block; }
+
+/* "Take a peek inside" lands on the section itself. The page-wide 35px
+   scroll-padding would otherwise leave a cut-off strip of the ticker above it. */
+#preview { scroll-margin-top: -35px; }
+
+/* Tapping an onboarding screen opens it here, over the page, instead of
+   swapping the page for the bare image. The links still work without JS. */
+.shot-viewer {
+    margin: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    max-width: min(92vw, 420px);
+    max-height: 92vh;
+    overflow: visible;
+}
+.shot-viewer::backdrop { background: #2c2420d9; }
+.shot-viewer img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 86vh;
+    border-radius: 28px;
+    box-shadow: 0 24px 48px #0006;
+}
+.shot-viewer button {
+    display: block;
+    margin: 14px auto 0;
+    min-height: 44px;
+    padding: 0 22px;
+    border: 1.5px solid var(--paper);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--paper);
+    font: 600 15px/1 "DM Sans", system-ui, sans-serif;
+    cursor: pointer;
+}
