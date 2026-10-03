@@ -1265,7 +1265,6 @@ html {
     background: var(--paper);
     box-shadow: 0 16px 28px #2c242018;
 }
-.screen-link:hover { border-color: var(--orange); }
 .screen-link img { display: block; width: 100%; height: auto; }
 .onboarding-screens figcaption { padding-top: 24px; }
 .onboarding-screens h3 { font: 600 24px/1.15 Fraunces, Georgia, serif; letter-spacing: -.02em; }
@@ -1306,36 +1305,3 @@ html {
 /* "Take a peek inside" lands on the section itself. The page-wide 35px
    scroll-padding would otherwise leave a cut-off strip of the ticker above it. */
 #preview { scroll-margin-top: -35px; }
-
-/* Tapping an onboarding screen opens it here, over the page, instead of
-   swapping the page for the bare image. The links still work without JS. */
-.shot-viewer {
-    margin: auto;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    max-width: min(92vw, 420px);
-    max-height: 92vh;
-    overflow: visible;
-}
-.shot-viewer::backdrop { background: #2c2420d9; }
-.shot-viewer img {
-    display: block;
-    width: auto;
-    max-width: 100%;
-    max-height: 86vh;
-    border-radius: 28px;
-    box-shadow: 0 24px 48px #0006;
-}
-.shot-viewer button {
-    display: block;
-    margin: 14px auto 0;
-    min-height: 44px;
-    padding: 0 22px;
-    border: 1.5px solid var(--paper);
-    border-radius: 999px;
-    background: transparent;
-    color: var(--paper);
-    font: 600 15px/1 "DM Sans", system-ui, sans-serif;
-    cursor: pointer;
-}
