@@ -45,3 +45,52 @@
   font-display: swap;
   src: url(assets/font-5.ttf) format('truetype');
 }
+/* Khmer: only downloaded when Khmer text is on screen (unicode-range). */
+@font-face {
+  font-family: 'Noto Sans Khmer';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/khmer-sans-400.ttf) format('truetype');
+  unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC;
+}
+
+/* Khmer: only downloaded when Khmer text is on screen (unicode-range). */
+@font-face {
+  font-family: 'Noto Sans Khmer';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/khmer-sans-600.ttf) format('truetype');
+  unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC;
+}
+
+/* Khmer: only downloaded when Khmer text is on screen (unicode-range). */
+@font-face {
+  font-family: 'Noto Sans Khmer';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/khmer-sans-700.ttf) format('truetype');
+  unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC;
+}
+
+/* Khmer: only downloaded when Khmer text is on screen (unicode-range). */
+@font-face {
+  font-family: 'Noto Serif Khmer';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/khmer-serif-600.ttf) format('truetype');
+  unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC;
+}
+
+/* Khmer: only downloaded when Khmer text is on screen (unicode-range). */
+@font-face {
+  font-family: 'Noto Serif Khmer';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(assets/khmer-serif-700.ttf) format('truetype');
+  unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC;
+}
