@@ -18,7 +18,6 @@ Open `index.html` in a browser, or run `python3 -m http.server` here and visit h
 | `fonts.css`, `assets/font-*.ttf` | DM Sans and Fraunces, from Google Fonts (SIL Open Font License) |
 | `assets/logo.png` | The raccoon logo |
 | `assets/food.jpg` | AI-generated illustrative food image, not a photo of a real restaurant's dish |
-| `assets/app-home.jpg` | The native app's home screen, captured from the iOS Simulator on 27 September 2026 and edited: the cuisine tiles and two cards carry photos taken from the 14 September web screenshot, the For you rail is relabelled Popular with the two places (and their ratings) that led Popular in that screenshot, the Expo dev-tools button is painted out, and the clock reads 9:41 |
 | `assets/app-welcome.jpg`, `assets/app-areas.jpg`, `assets/app-tastes.jpg` | October 3, 2026 simulator screenshots supplied by the owner, edited with image generation to remove the blue development overlay and set the time to 9:41. The area screen uses the later capture with Chamkarmon and Russei Keo selected. Used for the welcome and onboarding previews. |
 | `i18n.js` | The English / Khmer toggle on the homepage. English stays in `index.html`; this file holds the Khmer, keyed by each element's `data-i18n`, `data-i18n-alt` or `data-i18n-aria`. The choice is kept in `localStorage` on the visitor's device (not a cookie, never sent) and can be linked with `?lang=km`. The Khmer was drafted by Claude and needs a fluent speaker's review. The privacy and terms pages and the app screenshots stay English |
 | `assets/khmer-*.ttf` | Noto Sans Khmer and Noto Serif Khmer, from Google Fonts (SIL Open Font License). `unicode-range` means they download only when Khmer text is on screen |
@@ -27,10 +26,6 @@ Open `index.html` in a browser, or run `python3 -m http.server` here and visit h
 ## October 2026 website refresh
 
 The homepage now uses the welcome screen and adds neighbourhood and cuisine previews. Ratings are labelled as in the test build, verified against `RateSheet.tsx`, `useRating.ts`, and `RestaurantScreen.tsx` in the app repository. Search and sign-in copy was checked against `SearchScreen.tsx` and `AuthSheet.tsx`. Lists and friends remain marked coming soon. Only the public website was changed. The moving ticker uses a filled, asymmetric starburst drawn in SVG.
-
-## Archived asset note
-
-The old `assets/app-home.jpg` is no longer displayed on the homepage. It contains restaurant photos that came from the Google Places API (reused from the earlier screenshot it replaced). Google's terms restrict storing and republishing Places photos, and the app stopped serving them for that reason (decision D33 in the app repo). The owner chose to keep this image for now. Replace them with the project's own photographs before any wider launch.
 
 ## Social icons
 
