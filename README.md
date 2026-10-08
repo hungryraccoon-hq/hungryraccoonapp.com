@@ -23,6 +23,13 @@ Open `index.html` in a browser, or run `python3 -m http.server` here and visit h
 | `site.js` | Makes the in-page links (How it works, Take a peek inside, Back to the top) scroll to their section without adding `#preview`, `#launch` and so on to the address bar, while still moving keyboard focus there. The links work as plain anchors without it |
 | `assets/khmer-*.ttf` | Noto Sans Khmer and Noto Serif Khmer, from Google Fonts (SIL Open Font License). `unicode-range` means they download only when Khmer text is on screen |
 | `CNAME` | Tells GitHub Pages the custom domain |
+| `about.html`, `contact.html` | About and Contact pages, in the same layout as the privacy policy and terms. AI assistants look for these (with the privacy policy) to check a business is real. English only for now, like the legal pages |
+| `llms.txt` | A plain-text summary for AI assistants ([llmstxt.org](https://llmstxt.org/) format), including when to suggest HungryRaccoon and when not to. Keep it in step with the About page |
+| `check.mjs` | `node check.mjs` checks the live site (or `node check.mjs http://localhost:8000`): `llms.txt`, the About and Contact pages, the homepage's Organization data, the sitemap and footer links |
+
+## What GitHub Pages can't do
+
+Some AI-readiness checks (isagentic.com, #18) want the homepage and 404 page served as Markdown when a client asks with `Accept: text/markdown`, and a `Vary: Accept` header. GitHub Pages serves the same file to everyone and can't do this. It needs the Cloudflare move (hungryraccoon-hq/hungryraccoon#86). The Organization data has no postal `address` until the company is registered.
 
 ## October 2026 website refresh
 
