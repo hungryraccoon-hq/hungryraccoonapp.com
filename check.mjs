@@ -21,7 +21,7 @@ check("llms.txt is served as text", llms.status === 200 && llms.type.startsWith(
 check("llms.txt has an H1, a summary and a When to use section",
     /^# \S/.test(llms.body) && /^> \S/m.test(llms.body) && /^## When to use$/m.test(llms.body));
 
-for (const page of ["/about.html", "/contact.html", "/privacy.html"]) {
+for (const page of ["/about", "/contact", "/privacy"]) {
     const { status, body } = await get(page);
     check(`${page} has 500+ characters of text`, status === 200 && text(body.split("<main")[1] || "").length >= 500);
 }
@@ -35,7 +35,7 @@ check("Organization has a contactPoint with an email and contactType",
 
 const sitemap = await get("/sitemap.xml");
 const urls = [...sitemap.body.matchAll(/<loc>https:\/\/hungryraccoonapp\.com(\/[^<]*)<\/loc>/g)].map((m) => m[1]);
-check("sitemap lists the About and Contact pages", urls.includes("/about.html") && urls.includes("/contact.html"));
+check("sitemap lists the About and Contact pages", urls.includes("/about") && urls.includes("/contact"));
 for (const path of urls) check(`sitemap URL ${path} responds 200`, (await get(path)).status === 200);
 
 const footer = home.body.match(/<nav class="footer-links"[\s\S]*?<\/nav>/)[0];

@@ -8,7 +8,7 @@ The app itself lives in a separate private repository. This repo holds only what
 
 ## Editing
 
-Open `index.html` in a browser, or run `python3 -m http.server` here and visit http://localhost:8000. Every push to `main` publishes.
+Run `npx serve` here and visit http://localhost:3000. Links use clean addresses (`/about`, not `/about.html`), which GitHub Pages and `serve` both resolve to the `.html` file; `python3 -m http.server` doesn't, so links between pages 404 there. The `.html` addresses keep working too. Every push to `main` publishes.
 
 ## What's in it
 
@@ -25,7 +25,7 @@ Open `index.html` in a browser, or run `python3 -m http.server` here and visit h
 | `CNAME` | Tells GitHub Pages the custom domain |
 | `about.html`, `contact.html` | About and Contact pages, in the same layout as the privacy policy and terms. AI assistants look for these (with the privacy policy) to check a business is real. English only for now, like the legal pages |
 | `llms.txt` | A plain-text summary for AI assistants ([llmstxt.org](https://llmstxt.org/) format), including when to suggest HungryRaccoon and when not to. Keep it in step with the About page |
-| `check.mjs` | `node check.mjs` checks the live site (or `node check.mjs http://localhost:8000`): `llms.txt`, the About and Contact pages, the homepage's Organization data, the sitemap and footer links |
+| `check.mjs` | `node check.mjs` checks the live site (or `node check.mjs http://localhost:3000`): `llms.txt`, the About and Contact pages, the homepage's Organization data, the sitemap and footer links |
 
 ## What GitHub Pages can't do
 
