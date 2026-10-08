@@ -8,7 +8,7 @@
 // ?lang=km, ?lang=fr or ?lang=en.
 (function () {
     var km = {
-        title: "HungryRaccoon — វាយតម្លៃ ដាក់ក្នុងបញ្ជី និងចែករំលែកកន្លែងញ៉ាំនៅភ្នំពេញ",
+        title: "HungryRaccoon — កម្មវិធីម្ហូបអាហារសម្រាប់ភ្នំពេញ៖ វាយតម្លៃ ដាក់ក្នុងបញ្ជី និងចែករំលែកកន្លែងញ៉ាំ",
         skip: "រំលង",
         brandHome: "ទំព័រដើម HungryRaccoon",
         navMain: "ការរុករកមេ",
@@ -52,7 +52,7 @@
     };
 
     var fr = {
-        title: "HungryRaccoon — Notez, listez et partagez vos adresses à Phnom Penh",
+        title: "HungryRaccoon — L’appli culinaire de Phnom Penh : notez, listez et partagez vos adresses",
         skip: "Aller au contenu",
         brandHome: "Accueil HungryRaccoon",
         navMain: "Navigation principale",
