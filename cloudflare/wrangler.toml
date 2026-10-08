@@ -1,0 +1,4 @@
+name = "hungryraccoonapp-markdown"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+routes = [{ pattern = "hungryraccoonapp.com/*", zone_name = "hungryraccoonapp.com" }]
