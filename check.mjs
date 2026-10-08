@@ -9,9 +9,9 @@ function check(name, ok) {
     if (!ok) failed++;
 }
 
-async function get(path) {
-    const res = await fetch(base + path);
-    return { status: res.status, type: res.headers.get("content-type") || "", body: await res.text() };
+async function get(path, accept = "text/html") {
+    const res = await fetch(base + path, { headers: { Accept: accept } });
+    return { status: res.status, type: res.headers.get("content-type") || "", vary: res.headers.get("vary") || "", body: await res.text() };
 }
 
 const text = (html) => html.replace(/<(script|style)[\s\S]*?<\/\1>|<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
@@ -45,5 +45,14 @@ for (const [, href] of footer.matchAll(/href="([^"]+)"/g)) {
 
 const missing = await get("/no-such-page");
 check("an unknown path still returns 404", missing.status === 404);
+
+// Served by the Cloudflare Worker (cloudflare/worker.js), not GitHub Pages.
+const mdHome = await get("/", "text/markdown");
+check("homepage returns Markdown with Vary: Accept when asked",
+    mdHome.status === 200 && mdHome.type.startsWith("text/markdown") && /\baccept\b/i.test(mdHome.vary) && mdHome.body.startsWith("# "));
+check("homepage still returns HTML to browsers", home.type.startsWith("text/html"));
+const md404 = await get("/no-such-page", "text/markdown");
+check("unknown path returns a Markdown 404 linking to llms.txt",
+    md404.status === 404 && md404.type.startsWith("text/markdown") && md404.body.includes("/llms.txt"));
 
 process.exit(failed ? 1 : 0);

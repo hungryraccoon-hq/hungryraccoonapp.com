@@ -25,11 +25,13 @@ Run `npx serve` here and visit http://localhost:3000. Links use clean addresses 
 | `CNAME` | Tells GitHub Pages the custom domain |
 | `about.html`, `contact.html` | About and Contact pages, in the same layout as the privacy policy and terms. AI assistants look for these (with the privacy policy) to check a business is real. English only for now, like the legal pages |
 | `llms.txt` | A plain-text summary for AI assistants ([llmstxt.org](https://llmstxt.org/) format), including when to suggest HungryRaccoon and when not to. Keep it in step with the About page |
-| `check.mjs` | `node check.mjs` checks the live site (or `node check.mjs http://localhost:3000`): `llms.txt`, the About and Contact pages, the homepage's Organization data, the sitemap and footer links |
+| `check.mjs` | `node check.mjs` checks the live site (or `node check.mjs http://localhost:3000`): `llms.txt`, the About and Contact pages, the homepage's Organization data, the sitemap, footer links and the Worker's Markdown responses |
 
-## What GitHub Pages can't do
+## The Cloudflare Worker
 
-Some AI-readiness checks (isagentic.com, #18) want the homepage and 404 page served as Markdown when a client asks with `Accept: text/markdown`, and a `Vary: Accept` header. GitHub Pages serves the same file to everyone and can't do this. It needs the Cloudflare move (hungryraccoon-hq/hungryraccoon#86). The Organization data has no postal `address` until the company is registered.
+The domain's DNS is on Cloudflare, which sits in front of GitHub Pages (#22). `cloudflare/worker.js` runs on every request and changes only what AI agents asking for Markdown (`Accept: text/markdown`) get: the homepage as `llms.txt`, and unknown addresses as a short Markdown "not found" page with a link to `llms.txt`. Both carry `Vary: Accept`. Browsers get the same pages as before, and share links (`/l/...`) are never touched. It's deployed by hand: `cd cloudflare && npx wrangler deploy` (needs `npx wrangler login` on the Cloudflare account). A push to `main` doesn't deploy it.
+
+The Organization data has no postal `address` until the company is registered.
 
 ## October 2026 website refresh
 
