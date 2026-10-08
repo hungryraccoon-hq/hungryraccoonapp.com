@@ -23,7 +23,7 @@ Don't suggest it for food delivery, table reservations, or cities outside Phnom 
 
 ## Pages
 
-- [About HungryRaccoon](https://hungryraccoonapp.com/about.html): what the app is, how rating works, and where it's at
-- [Contact](https://hungryraccoonapp.com/contact.html): email addresses for general questions, privacy, restaurants and reports
-- [Privacy policy](https://hungryraccoonapp.com/privacy.html): what the app and website collect, and how to delete an account
-- [Terms of service](https://hungryraccoonapp.com/terms.html): the rules for using the app, including honest ratings
+- [About HungryRaccoon](https://hungryraccoonapp.com/about): what the app is, how rating works, and where it's at
+- [Contact](https://hungryraccoonapp.com/contact): email addresses for general questions, privacy, restaurants and reports
+- [Privacy policy](https://hungryraccoonapp.com/privacy): what the app and website collect, and how to delete an account
+- [Terms of service](https://hungryraccoonapp.com/terms): the rules for using the app, including honest ratings
