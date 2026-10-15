@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(assets/font-0.ttf) format('truetype');
+  src: url(assets/font-0.woff2) format('woff2');
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(assets/font-1.ttf) format('truetype');
+  src: url(assets/font-1.woff2) format('woff2');
 }
 
 @font-face {
@@ -19,7 +19,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(assets/font-2.ttf) format('truetype');
+  src: url(assets/font-2.woff2) format('woff2');
 }
 
 @font-face {
@@ -27,7 +27,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(assets/font-3.ttf) format('truetype');
+  src: url(assets/font-3.woff2) format('woff2');
 }
 
 @font-face {
@@ -35,7 +35,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(assets/font-4.ttf) format('truetype');
+  src: url(assets/font-4.woff2) format('woff2');
 }
 
 @font-face {
@@ -43,7 +43,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(assets/font-5.ttf) format('truetype');
+  src: url(assets/font-5.woff2) format('woff2');
 }
 /* Khmer: only downloaded when Khmer text is on screen (unicode-range). */
 @font-face {
@@ -51,7 +51,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(assets/khmer-sans-400.ttf) format('truetype');
+  src: url(assets/khmer-sans-400.woff2) format('woff2');
   unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC;
 }
 
@@ -61,7 +61,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(assets/khmer-sans-600.ttf) format('truetype');
+  src: url(assets/khmer-sans-600.woff2) format('woff2');
   unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC;
 }
 
@@ -71,7 +71,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(assets/khmer-sans-700.ttf) format('truetype');
+  src: url(assets/khmer-sans-700.woff2) format('woff2');
   unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC;
 }
 
@@ -81,7 +81,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(assets/khmer-serif-600.ttf) format('truetype');
+  src: url(assets/khmer-serif-600.woff2) format('woff2');
   unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC;
 }
 
@@ -91,6 +91,6 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(assets/khmer-serif-700.ttf) format('truetype');
+  src: url(assets/khmer-serif-700.woff2) format('woff2');
   unicode-range: U+1780-17FF, U+19E0-19FF, U+200B-200D, U+25CC;
 }
