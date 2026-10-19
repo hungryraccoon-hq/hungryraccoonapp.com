@@ -37,6 +37,7 @@ const CONFIRM = {
             "We're testing it with a small group on iPhone first. The beta opens in November, and I'll email you an invite as soon as there's a spot for you.",
             "If there's a place you think everyone should try, hit reply and tell me. I read every email.",
         ],
+        founder: "Founder of Yummers",
         offList: "Didn't sign up, or changed your mind? {unsubscribe}",
         unsubscribe: "Take me off the list",
         leaveTitle: "Leave the beta list?",
@@ -65,6 +66,7 @@ const CONFIRM = {
             "យើងកំពុងសាកល្បងវាជាមួយក្រុមតូចមួយលើ iPhone សិន។ កម្មវិធីសាកល្បងនឹងបើកនៅខែវិច្ឆិកា ហើយខ្ញុំនឹងផ្ញើអ៊ីមែលអញ្ជើញទៅអ្នក ភ្លាមៗនៅពេលមានកន្លែងសម្រាប់អ្នក។",
             "បើមានកន្លែងណាដែលអ្នកគិតថាគ្រប់គ្នាគួរតែសាកល្បង សូមឆ្លើយតបមកប្រាប់ខ្ញុំ។ ខ្ញុំអានរាល់អ៊ីមែល។",
         ],
+        founder: "ស្ថាបនិក Yummers",
         offList: "មិនបានចុះឈ្មោះ ឬប្ដូរចិត្ត? {unsubscribe}",
         unsubscribe: "ដកឈ្មោះខ្ញុំចេញពីបញ្ជី",
         leaveTitle: "ចាកចេញពីបញ្ជីសាកល្បង?",
@@ -93,6 +95,7 @@ const CONFIRM = {
             "Nous la testons d'abord sur iPhone avec un petit groupe. La bêta ouvre en novembre, et je vous enverrai une invitation dès qu'il y aura une place pour vous.",
             "S'il y a un endroit que tout le monde devrait essayer selon vous, répondez à cet e-mail pour me le dire. Je lis tous les e-mails.",
         ],
+        founder: "Fondateur de Yummers",
         offList: "Vous ne vous êtes pas inscrit, ou vous avez changé d'avis ? {unsubscribe}",
         unsubscribe: "Me retirer de la liste",
         leaveTitle: "Quitter la liste de la bêta ?",
@@ -119,7 +122,7 @@ function confirmText(t, unsub) {
     return `${t.note.join("\n\n")}
 
 Sovithyea
-Yummers · https://yummersapp.com
+${t.founder} · https://yummersapp.com
 
 ${t.offList.replace("{unsubscribe}", `${t.unsubscribe}: ${unsub}`)}
 `;
@@ -135,7 +138,7 @@ function confirmHtml(t, lang, unsub) {
 <body style="margin:0;padding:16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;color:#2C2420;">
 <div style="max-width:560px;">
 ${t.note.map(s => p(s)).join("\n")}
-${p(`Sovithyea<br>Yummers · <a href="https://yummersapp.com" style="${link}">yummersapp.com</a>`)}
+${p(`Sovithyea<br>${t.founder} · <a href="https://yummersapp.com" style="${link}">yummersapp.com</a>`)}
 ${p(t.offList.replace("{unsubscribe}", `<a href="${unsub}" style="${link}">${t.unsubscribe}</a>`), "margin-top:28px;font-size:13px;color:#8A7D70;")}
 </div>
 </body>
