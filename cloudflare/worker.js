@@ -4,11 +4,11 @@
 // passes through unchanged.
 const NOT_FOUND = `# Page not found
 
-There's no page at this address on hungryraccoonapp.com.
+There's no page at this address on yummersapp.com.
 
-- [HungryRaccoon home](https://hungryraccoonapp.com/)
-- [What HungryRaccoon is, for AI assistants](https://hungryraccoonapp.com/llms.txt)
-- [Sitemap](https://hungryraccoonapp.com/sitemap.xml)
+- [Yummers home](https://yummersapp.com/)
+- [What Yummers is, for AI assistants](https://yummersapp.com/llms.txt)
+- [Sitemap](https://yummersapp.com/sitemap.xml)
 `;
 
 function markdown(body, status) {
