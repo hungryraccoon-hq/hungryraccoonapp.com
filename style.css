@@ -374,12 +374,21 @@ em {
     outline-offset: 3px
 }
 
+/* The bot check, when it has to show itself (index.html keeps it light: it would
+   follow the device's dark mode otherwise). Its box is sealed off from our CSS,
+   so the spacing and rounding go on the container, which is empty otherwise. */
+.signup .cf-turnstile {
+    margin-top: 12px;
+    border-radius: 12px;
+    overflow: hidden
+}
+
 .signup .button {
     border: 0;
     font: inherit;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 18px
+    margin-top: 12px
 }
 
 .signup-note,
