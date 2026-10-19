@@ -177,6 +177,27 @@ em {
     transition: background .2s, transform .2s
 }
 
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 26px;
+    margin-top: 30px
+}
+
+.hero-actions .button {
+    margin-top: 0
+}
+
+.hero-peek {
+    font-weight: 600;
+    border-bottom: 1px solid currentColor
+}
+
+.hero-peek:hover {
+    color: var(--accent)
+}
+
 .button:hover {
     background: var(--accent);
     transform: translateY(-2px)
@@ -641,8 +662,22 @@ em {
 }
 
 @media(max-width:700px) {
+    /* The phone sits clear of the screen edge, with more of the map card beside it. */
     .hero-art {
-        height: 610px
+        height: 520px
+    }
+
+    .device-figure {
+        left: 22px;
+        width: 196px;
+        top: 26px
+    }
+
+    .food-photo {
+        width: 66%;
+        height: 400px;
+        top: 40px;
+        right: 4px
     }
 
     .small-note {
@@ -652,7 +687,11 @@ em {
 
 @media(max-width:360px) {
     .hero-art {
-        height: 580px
+        height: 480px
+    }
+
+    .device-figure {
+        width: 176px
     }
 }
 
@@ -1055,7 +1094,11 @@ html {
     .onboarding-screens figure { scroll-snap-align: start; }
     .onboarding-screens h3 { font-size: 21px; }
     .onboarding-screens figure:nth-child(2) { margin-top: 0; }
+    .screen-dots { display: flex; justify-content: center; gap: 8px; margin-top: -22px; }
+    .screen-dots span { width: 8px; height: 8px; border-radius: 4px; background: var(--line); transition: width .2s, background .2s; }
+    .screen-dots span.on { width: 22px; background: var(--accent); }
 }
+.screen-dots { display: none; }
 
 .ticker .ticker-star { fill: currentColor; stroke: none; }
 
