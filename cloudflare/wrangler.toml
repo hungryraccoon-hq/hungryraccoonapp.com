@@ -2,3 +2,8 @@ name = "hungryraccoonapp-markdown"
 main = "worker.js"
 compatibility_date = "2026-09-01"
 routes = [{ pattern = "yummersapp.com/*", zone_name = "yummersapp.com" }]
+
+# Pending beta sign-ups and the once-a-day limit on confirm emails (#46)
+[[kv_namespaces]]
+binding = "SIGNUPS"
+id = "157dc8c549e34279818d859d0fa05640"
