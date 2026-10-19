@@ -58,10 +58,11 @@
         backTop: "ត្រឡប់ទៅខាងលើ",
         footerTag: "បង្កើតឡើងសម្រាប់កម្ពុជា និងចំណង់អាហាររបស់អ្នក",
         footerNav: "បាតទំព័រ",
-        privacy: "គោលការណ៍ឯកជនភាព (English)",
-        terms: "លក្ខខណ្ឌប្រើប្រាស់ (English)",
-        about: "អំពីយើង (English)",
-        contact: "ទាក់ទងយើង (English)",
+        footerLang: "English",
+        privacy: "ឯកជនភាព",
+        terms: "លក្ខខណ្ឌ",
+        about: "អំពីយើង",
+        contact: "ទាក់ទង",
         onInstagram: "Yummers នៅលើ Instagram",
         onFacebook: "Yummers នៅលើ Facebook",
         onLinkedIn: "Yummers នៅលើ LinkedIn",
@@ -75,55 +76,56 @@
         navMain: "Navigation principale",
         navHow: "Comment ça marche",
         navStatus: "Rejoindre la bêta iPhone",
-        heroTitle: "Notez. Listez.<br><em>Partagez.</em>",
-        heroIntro: "Yummers est un carnet culinaire à partager, pensé pour le Cambodge. Notez les endroits où vous avez mangé, gardez des listes de vos prochaines adresses et découvrez ce que vos amis adorent.",
+        heroTitle: "Goûtez. Notez.<br><em>Partagez.</em>",
+        heroIntro: "Yummers, c’est votre carnet d’adresses gourmand au Cambodge, à partager entre amis. Notez les restos que vous avez testés, gardez sous le coude ceux qui vous font envie et découvrez les coups de cœur de vos amis.",
         heroButton: "Rejoindre la bêta iPhone",
         heroPeek: "Jetez un œil",
         exploreAlt: "Carte de Phnom Penh avec des groupes d’adresses, et la liste des adresses visibles en dessous",
         foodCaption: "Un bon plat vous attend au coin de la rue.",
-        signinAlt: "Écran de connexion de Yummers : Rate it. List it. Share it., avec Continue with Apple, Continue with Google, Continue with Email et Look around first",
+        signinAlt: "Écran de connexion de Yummers : Rate it. List it. Share it., avec Continue with Apple, Continue with Google, Continue with Email et Look around first",
         previewCaption: "Aperçu de l’app · octobre 2026",
-        tickerLabel: "Notez ce que vous avez mangé, Faites des listes, Partagez avec vos amis, Le Cambodge dans l’assiette",
-        tickerRate: "Notez ce que vous avez mangé",
-        tickerLists: "Faites des listes",
+        tickerLabel: "Notez vos restos, Créez vos listes, Partagez avec vos amis, Le Cambodge dans l’assiette",
+        tickerRate: "Notez vos restos",
+        tickerLists: "Créez vos listes",
         tickerShare: "Partagez avec vos amis",
         tickerPlate: "Le Cambodge dans l’assiette",
         previewTitle: "Votre ville.<br>Vos goûts.<br><em>Votre prochain repas.</em>",
-        previewP1: "Choisissez votre ville, vos quartiers et la cuisine que vous aimez. Vos adresses passent en premier.",
+        previewP1: "Choisissez votre ville, vos quartiers et vos cuisines préférées : les adresses qui vous ressemblent s’affichent en premier.",
         areasAlt: "Choisissez jusqu’à trois quartiers de Phnom Penh. BKK et Chamkar Mon sont sélectionnés.",
         areasTitle: "Juste au coin de la rue.",
         areasText: "Choisissez jusqu’à trois quartiers pour commencer.",
-        tastesAlt: "Qu’aimez-vous manger ? Khmère, nouilles, barbecue et japonaise sont sélectionnés.",
-        tastesTitle: "Selon vos goûts.",
-        tastesText: "Choisissez vos préférées. Modifiables à tout moment.",
-        cityAlt: "Où mangez-vous ? Choisissez votre ville : Phnom Penh est sélectionnée, avec Siem Reap, Sihanoukville, Battambang, Kampot et Kep.",
+        tastesAlt: "Qu’aimez-vous manger ? Cuisine khmère, nouilles, barbecue et cuisine japonaise sont sélectionnés.",
+        tastesTitle: "À votre goût.",
+        tastesText: "Choisissez vos cuisines préférées, modifiables à tout moment.",
+        cityAlt: "Où mangez-vous ? Choisissez votre ville : Phnom Penh est sélectionnée, avec Siem Reap, Sihanoukville, Battambang, Kampot et Kep.",
         cityTitle: "Votre ville.",
-        cityText: "Phnom Penh, Siem Reap, Kampot et plus encore.",
-        findTitle: "Cherchez.<br>Repérez.<br><em>Allez manger.</em>",
-        findP1: "Cherchez un plat, une cuisine ou un quartier, et voyez vos listes sur une carte.",
+        cityText: "Phnom Penh, Siem Reap, Kampot et bien d’autres.",
+        findTitle: "Cherchez.<br>Trouvez.<br><em>Régalez-vous.</em>",
+        findP1: "Cherchez un plat, une cuisine ou un quartier, et retrouvez vos listes sur la carte.",
         searchAlt: "Écran de recherche avec des cuisines, des quartiers de Phnom Penh et les adresses populaires",
         searchTitle: "Une seule barre de recherche.",
-        searchText: "Adresses, cuisines et quartiers, au même endroit.",
-        resultsAlt: "Résultats pour « noodles », groupés par ville et par quartier",
-        resultsTitle: "Droit à l’essentiel.",
-        resultsText: "Des résultats groupés par ville et par quartier.",
-        listMapAlt: "La liste « Noodles I'd cross town for » sur une carte de Phnom Penh",
+        searchText: "Restos, cuisines et quartiers, tout au même endroit.",
+        resultsAlt: "Résultats pour « noodles », regroupés par ville et par quartier",
+        resultsTitle: "Droit au but.",
+        resultsText: "Résultats regroupés par ville et par quartier.",
+        listMapAlt: "La liste « Noodles I'd cross town for » sur une carte de Phnom Penh",
         listMapTitle: "Vos listes, sur une carte.",
-        listMapText: "Voyez où se trouve chaque adresse d’une liste.",
+        listMapText: "Situez d’un coup d’œil chaque adresse de vos listes.",
         closingTitle: "Rendez-vous à<br>votre prochaine <em>adresse fétiche.</em>",
-        closingText: "La bêta est réservée à l’iPhone pour l’instant et ouvre en novembre. <br>Laissez votre e-mail et nous vous enverrons une invitation.",
+        closingText: "Pour l’instant, la bêta est réservée à l’iPhone et ouvrira en novembre. <br>Laissez-nous votre e-mail, on vous enverra une invitation.",
         signupEmail: "Votre e-mail",
         signupButton: "Rejoindre la bêta iPhone",
-        signupNote: 'Nous vous écrirons uniquement au sujet de la bêta. Voir notre <a href="/privacy#beta-sign-up">politique de confidentialité</a>.',
-        signupDone: "Presque fini ! Consultez votre boîte de réception : un lien vous attend pour confirmer votre e-mail.",
-        signupError: "Ça n’a pas marché. Vérifiez votre e-mail et réessayez.",
+        signupNote: 'On ne vous écrira qu’au sujet de la bêta. Voir notre <a href="/privacy#beta-sign-up">politique de confidentialité</a>.',
+        signupDone: "Presque fini ! Un lien vous attend dans votre boîte de réception pour confirmer votre adresse.",
+        signupError: "Oups, ça n’a pas marché. Vérifiez votre adresse e-mail et réessayez.",
         backTop: "Retour en haut",
-        footerTag: "Fait pour le Cambodge. Et pour votre appétit.",
+        footerTag: "Pensé pour le Cambodge. Et pour les gourmands.",
         footerNav: "Pied de page",
-        privacy: "Politique de confidentialité (en anglais)",
-        terms: "Conditions d’utilisation (en anglais)",
-        about: "À propos (en anglais)",
-        contact: "Nous contacter (en anglais)",
+        footerLang: "English",
+        privacy: "Confidentialité",
+        terms: "Conditions",
+        about: "À propos",
+        contact: "Contact",
         onInstagram: "Yummers sur Instagram",
         onFacebook: "Yummers sur Facebook",
         onLinkedIn: "Yummers sur LinkedIn",
@@ -135,7 +137,8 @@
 
     var KEY = "hr-lang";
     var root = document.documentElement;
-    var buttons = document.querySelectorAll(".lang-switch button");
+    var group = document.querySelector(".lang-switch");
+    var buttons = group.querySelectorAll("button");
     var targets = [
         ["data-i18n", null],
         ["data-i18n-alt", "alt"],
@@ -166,6 +169,14 @@
         buttons.forEach(function (b) {
             b.setAttribute("aria-pressed", b.getAttribute("data-lang") === root.lang ? "true" : "false");
         });
+        slide();
+    }
+
+    // Move the dark pill (style.css, .lang-switch:before) under the chosen button.
+    function slide() {
+        var on = group.querySelector('[aria-pressed="true"]');
+        group.style.setProperty("--pill-x", on.offsetLeft + "px");
+        group.style.setProperty("--pill-w", on.offsetWidth + "px");
     }
 
     function isLang(l) { return l === "en" || !!strings[l]; }
@@ -178,11 +189,15 @@
 
     var start = saved();
     if (start && strings[start]) apply(start);
+    slide();
+    addEventListener("resize", slide);
+    if (document.fonts) document.fonts.ready.then(slide);
 
     buttons.forEach(function (b) {
         b.addEventListener("click", function () {
             var next = b.getAttribute("data-lang");
             if (!isLang(next) || next === root.lang) return;
+            group.classList.add("lang-slide");
             apply(next);
             try { localStorage.setItem(KEY, next); } catch (e) { }
             // Keep a shared link in the language being read.

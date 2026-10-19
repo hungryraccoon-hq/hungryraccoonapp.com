@@ -9,7 +9,9 @@
             window.scrollTo({ top: 0 });
             return;
         }
-        target.scrollIntoView();
+        // #main (Back to the top, the skip link) starts below the header, so go to the very top.
+        if (target.id === "main") window.scrollTo({ top: 0 });
+        else target.scrollIntoView();
         // Move keyboard focus too, as following a real anchor would, so the
         // skip link and Back to the top still help keyboard and screen reader users.
         if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
@@ -85,5 +87,44 @@
         }
         row.addEventListener("scroll", update, { passive: true });
         update();
+        pinWhileScrolling(row, dots);
     });
+
+    // On phones the row holds still in the middle of the screen while scrolling
+    // down slides its phones in from the right; after the last one the page
+    // carries on. The track is as tall as the slide is long, so a finger only
+    // ever moves down. Desktop, and anyone who asks for less motion, keep the plain row.
+    function pinWhileScrolling(row, dots) {
+        var phone = matchMedia("(max-width: 700px) and (prefers-reduced-motion: no-preference)");
+        var track = document.createElement("div");
+        var pin = document.createElement("div");
+        track.className = "screen-track";
+        pin.className = "screen-pin";
+        row.before(track);
+        track.appendChild(pin);
+        pin.append(row, dots);
+        var distance = 0, top = 0, SLOW = 3; // px scrolled down per px slid sideways
+
+        function layout() {
+            track.classList.toggle("pinned", phone.matches);
+            if (!phone.matches) { track.style.height = pin.style.top = ""; return; }
+            distance = row.scrollWidth - row.clientWidth;
+            top = Math.max(0, (innerHeight - pin.offsetHeight) / 2);
+            pin.style.top = top + "px";
+            track.style.height = pin.offsetHeight + distance * SLOW + "px";
+            slide();
+        }
+
+        function slide() {
+            if (!phone.matches || !distance) return;
+            var moved = top - track.getBoundingClientRect().top;
+            row.scrollLeft = Math.min(distance, Math.max(0, moved / SLOW));
+        }
+
+        addEventListener("scroll", slide, { passive: true });
+        addEventListener("resize", layout);
+        phone.addEventListener("change", layout);
+        row.querySelectorAll("img").forEach(function (img) { img.addEventListener("load", layout); });
+        layout();
+    }
 })();
