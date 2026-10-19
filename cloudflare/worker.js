@@ -277,27 +277,56 @@ function page(lang, title, text, button) {
 </html>`, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
 }
 
+// Sent with every answer (#48). The policy allows only what the pages use: their
+// own files, Cloudflare's Turnstile (the sign-up's bot check), and the Supabase
+// project that 404.html's share links read (update it when they move to beta, #224).
+// Inline styles stay allowed for 404.html's <style> and page() below.
+const SECURITY_HEADERS = {
+    "Content-Security-Policy": [
+        "default-src 'self'",
+        "script-src 'self' https://challenges.cloudflare.com",
+        "frame-src https://challenges.cloudflare.com",
+        "connect-src 'self' https://mbuxxkchudopmpihrakk.supabase.co",
+        "style-src 'self' 'unsafe-inline'",
+        "object-src 'none'",
+        "base-uri 'self'",
+        "form-action 'self'",
+        "frame-ancestors 'none'",
+    ].join("; "),
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "X-Frame-Options": "DENY",
+};
+
+async function route(request, env, ctx) {
+    const url = new URL(request.url);
+    if (url.pathname === "/api/signup" && request.method === "POST") return signup(request, env);
+    if (url.pathname === "/api/confirm") return confirm(request, env, ctx, url);
+    if (url.pathname === "/api/unsubscribe") return unsubscribe(request, env, url);
+    const wantsMarkdown = (request.headers.get("Accept") || "").includes("text/markdown");
+
+    if (wantsMarkdown && url.pathname === "/") {
+        const llms = await fetch(new URL("/llms.txt", url));
+        return markdown(await llms.text(), llms.status);
+    }
+
+    const res = await fetch(request);
+    // Share links (/l/...) are rendered by 404.html, so they arrive as 404s
+    // but are real pages.
+    if (wantsMarkdown && res.status === 404 && !url.pathname.startsWith("/l/")) {
+        return markdown(NOT_FOUND, 404);
+    }
+    const out = new Response(res.body, res);
+    out.headers.append("Vary", "Accept");
+    return out;
+}
+
 export default {
     async fetch(request, env, ctx) {
-        const url = new URL(request.url);
-        if (url.pathname === "/api/signup" && request.method === "POST") return signup(request, env);
-        if (url.pathname === "/api/confirm") return confirm(request, env, ctx, url);
-        if (url.pathname === "/api/unsubscribe") return unsubscribe(request, env, url);
-        const wantsMarkdown = (request.headers.get("Accept") || "").includes("text/markdown");
-
-        if (wantsMarkdown && url.pathname === "/") {
-            const llms = await fetch(new URL("/llms.txt", url));
-            return markdown(await llms.text(), llms.status);
-        }
-
-        const res = await fetch(request);
-        // Share links (/l/...) are rendered by 404.html, so they arrive as 404s
-        // but are real pages.
-        if (wantsMarkdown && res.status === 404 && !url.pathname.startsWith("/l/")) {
-            return markdown(NOT_FOUND, 404);
-        }
+        const res = await route(request, env, ctx);
         const out = new Response(res.body, res);
-        out.headers.append("Vary", "Accept");
+        for (const [name, value] of Object.entries(SECURITY_HEADERS)) out.headers.set(name, value);
         return out;
     },
 };

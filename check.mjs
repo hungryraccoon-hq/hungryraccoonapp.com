@@ -1,5 +1,6 @@
 // Checks what AI agents look for on the site: llms.txt, the About and Contact
-// pages, the homepage's Organization data and the sitemap.
+// pages, the homepage's Organization data and the sitemap, plus the Worker's
+// security headers.
 // Usage: node check.mjs [base URL]   (default: the live site)
 const base = (process.argv[2] || "https://yummersapp.com").replace(/\/$/, "");
 let failed = 0;
@@ -56,5 +57,13 @@ check("unknown path returns a Markdown 404 linking to llms.txt",
     md404.status === 404 && md404.type.startsWith("text/markdown") && md404.body.includes("/llms.txt"));
 const badSignup = await fetch(`${base}/api/signup`, { method: "POST", body: new URLSearchParams({ email: "not-an-email" }) });
 check("the beta sign-up refuses a bad email", badSignup.status === 400);
+
+// The Worker's security headers (#48), on a page, a share link and an API answer.
+for (const res of [await fetch(base + "/"), await fetch(base + "/l/abcdefgh/x"), badSignup]) {
+    const h = (name) => res.headers.get(name) || "";
+    check(`${new URL(res.url).pathname} sends the security headers`,
+        h("content-security-policy").includes("frame-ancestors 'none'") && h("strict-transport-security").includes("max-age=")
+        && h("x-content-type-options") === "nosniff" && h("referrer-policy") && h("x-frame-options") === "DENY");
+}
 
 process.exit(failed ? 1 : 0);
