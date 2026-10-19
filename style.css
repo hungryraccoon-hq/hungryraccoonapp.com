@@ -41,6 +41,12 @@ a:focus-visible {
     outline-offset: 6px
 }
 
+/* Sections that site.js moves focus to after a jump (Join the iPhone beta,
+   Back to the top) aren't controls, so they get no focus ring. */
+[tabindex="-1"]:focus {
+    outline: none
+}
+
 svg {
     width: 24px;
     height: 24px;
