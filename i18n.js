@@ -8,7 +8,6 @@
 // ?lang=km, ?lang=fr or ?lang=en.
 (function () {
     var km = {
-        title: "Yummers — កម្មវិធីម្ហូបអាហារសម្រាប់ភ្នំពេញ៖ វាយតម្លៃ ដាក់ក្នុងបញ្ជី និងចែករំលែកកន្លែងញ៉ាំ",
         skip: "រំលង",
         brandHome: "ទំព័រដើម Yummers",
         navMain: "ការរុករកមេ",
@@ -71,7 +70,6 @@
     };
 
     var fr = {
-        title: "Yummers — L’appli culinaire de Phnom Penh : notez, listez et partagez vos adresses",
         skip: "Aller au contenu",
         brandHome: "Accueil Yummers",
         navMain: "Navigation principale",
@@ -156,7 +154,6 @@
             });
         });
     });
-    var englishTitle = document.title;
 
     function apply(lang) {
         var t = strings[lang] || {};
@@ -165,7 +162,6 @@
             if (item.attr) item.el.setAttribute(item.attr, value);
             else item.el.innerHTML = value;
         });
-        document.title = t.title || englishTitle;
         root.lang = strings[lang] ? lang : "en";
         buttons.forEach(function (b) {
             b.setAttribute("aria-pressed", b.getAttribute("data-lang") === root.lang ? "true" : "false");
