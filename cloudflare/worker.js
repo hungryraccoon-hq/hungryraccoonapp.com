@@ -34,7 +34,7 @@ const CONFIRM = {
         subject: "Thanks for joining the Yummers beta",
         note: [
             "Hi,",
-            "Thanks for signing up for the Yummers beta. I'm Sovithyea, one of a team of seven building Yummers here in Cambodia: an app to rate the places you've eaten, keep lists of where to go next, and see where your friends are eating.",
+            "Thanks for signing up for the Yummers beta. I'm Sovithyea, one of a team of seven building Yummers for Cambodia: an app to rate the places you've eaten, keep lists of where to go next, and see where your friends are eating.",
             "We're testing it with a small group on iPhone first. The beta opens in November, and we'll email you an invite as soon as there's a spot for you.",
             "If there's a place you think everyone should try, hit reply and tell me. I read every email.",
         ],
@@ -64,7 +64,7 @@ const CONFIRM = {
         subject: "អរគុណដែលបានចូលរួមសាកល្បង Yummers",
         note: [
             "សួស្តី,",
-            "អរគុណដែលបានចុះឈ្មោះសាកល្បង Yummers។ ខ្ញុំឈ្មោះ Sovithyea ជាសមាជិកម្នាក់ក្នុងក្រុមប្រាំពីរនាក់ ដែលកំពុងបង្កើត Yummers នៅទីនេះ ក្នុងប្រទេសកម្ពុជា៖ កម្មវិធីសម្រាប់វាយតម្លៃកន្លែងដែលអ្នកបានញ៉ាំ កត់ចំណាំកន្លែងដែលចង់ទៅលើកក្រោយ និងមើលថាមិត្តភក្តិរបស់អ្នកកំពុងញ៉ាំនៅឯណា។",
+            "អរគុណដែលបានចុះឈ្មោះសាកល្បង Yummers។ ខ្ញុំឈ្មោះ Sovithyea ជាសមាជិកម្នាក់ក្នុងក្រុមប្រាំពីរនាក់ ដែលកំពុងបង្កើត Yummers សម្រាប់ប្រទេសកម្ពុជា៖ កម្មវិធីសម្រាប់វាយតម្លៃកន្លែងដែលអ្នកបានញ៉ាំ កត់ចំណាំកន្លែងដែលចង់ទៅលើកក្រោយ និងមើលថាមិត្តភក្តិរបស់អ្នកកំពុងញ៉ាំនៅឯណា។",
             "យើងកំពុងសាកល្បងវាជាមួយក្រុមតូចមួយលើ iPhone សិន។ កម្មវិធីសាកល្បងនឹងបើកនៅខែវិច្ឆិកា ហើយយើងនឹងផ្ញើអ៊ីមែលអញ្ជើញទៅអ្នក ភ្លាមៗនៅពេលមានកន្លែងសម្រាប់អ្នក។",
             "បើមានកន្លែងណាដែលអ្នកគិតថាគ្រប់គ្នាគួរតែសាកល្បង សូមឆ្លើយតបមកប្រាប់ខ្ញុំ។ ខ្ញុំអានរាល់អ៊ីមែល។",
         ],
@@ -94,7 +94,7 @@ const CONFIRM = {
         subject: "Merci d'avoir rejoint la bêta Yummers",
         note: [
             "Bonjour,",
-            "Merci de vous être inscrit à la bêta de Yummers. Je m'appelle Sovithyea et je fais partie de l'équipe de sept personnes qui construit Yummers ici, au Cambodge : une appli pour noter les endroits où vous avez mangé, garder des listes de vos prochaines adresses et voir où mangent vos amis.",
+            "Merci de vous être inscrit à la bêta de Yummers. Je m'appelle Sovithyea et je fais partie de l'équipe de sept personnes qui construit Yummers pour le Cambodge : une appli pour noter les endroits où vous avez mangé, garder des listes de vos prochaines adresses et voir où mangent vos amis.",
             "Nous la testons d'abord sur iPhone avec un petit groupe. La bêta ouvre en novembre, et nous vous enverrons une invitation dès qu'il y aura une place pour vous.",
             "S'il y a un endroit que tout le monde devrait essayer selon vous, répondez à cet e-mail pour me le dire. Je lis tous les e-mails.",
         ],
