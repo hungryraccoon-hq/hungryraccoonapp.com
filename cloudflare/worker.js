@@ -157,7 +157,7 @@ function confirmHtml(t, lang, unsub) {
 <div style="max-width:560px;">
 ${t.note.map(s => p(s)).join("\n")}
 <p style="margin:0;">${t.regards}</p>
-<img src="https://yummersapp.com/assets/email-signature.png" width="110" alt="${NAME}" style="display:block;margin:4px 0;border:0;">
+<img src="https://yummersapp.com/assets/email-signature.png" width="160" alt="${NAME}" style="display:block;margin:4px 0;border:0;">
 ${p(`${NAME}<br><span style="color:#75685C;">${t.role}</span>`)}
 <div style="margin-top:28px;padding:16px;background:#F4EFE8;border-radius:12px;text-align:center;">
 <a href="https://yummersapp.com"><img src="https://yummersapp.com/assets/email-banner.png" width="280" alt="Yummers" style="display:block;margin:0 auto 10px;max-width:100%;height:auto;border:0;border-radius:8px;"></a>
