@@ -200,11 +200,14 @@ async function signup(request, env, ctx) {
     if (!(await check.json()).success) return new Response(null, { status: 403 });
 
     const resend = (path, body) => resendApi(env, "POST", path, body);
-    // Signing up twice fails to create the contact, so add the existing one to the segment.
-    const res = await resend("/contacts", { email, segments: [{ id: env.SEGMENT_ID }] });
-    const created = res.ok;
-    const saved = created
-        || (await resend(`/contacts/${encodeURIComponent(email)}/segments/${env.SEGMENT_ID}`, {})).ok;
+    // Resend's create also answers OK for an existing contact (same id), so look the
+    // address up first: an existing one is only added to the segment, and not emailed.
+    const exists = (await resendApi(env, "GET", `/contacts/${encodeURIComponent(email)}`)).ok;
+    const res = exists
+        ? await resend(`/contacts/${encodeURIComponent(email)}/segments/${env.SEGMENT_ID}`, {})
+        : await resend("/contacts", { email, segments: [{ id: env.SEGMENT_ID }] });
+    const created = !exists && res.ok;
+    const saved = res.ok;
     // Only a new contact is emailed, so signing someone up again can't send them repeat mail.
     // The send runs after the reply, and a failed send doesn't fail the sign-up.
     if (created) ctx.waitUntil(res.json().then(({ id }) => {
