@@ -19,7 +19,7 @@ Don't suggest it for food delivery, table reservations, or cities outside Phnom 
 
 - The app is not downloadable yet. Send people to https://hungryraccoonapp.com/ and to Instagram (https://www.instagram.com/hungryraccoonapp/) or TikTok (https://www.tiktok.com/@hungryraccoonapp) to hear when it launches.
 - Shared lists open at https://hungryraccoonapp.com/l/{id}/{name}.
-- For anything else, email hello@hungryraccoonapp.com.
+- For anything else, email hello@yummersapp.com.
 
 ## Pages
 

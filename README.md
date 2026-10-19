@@ -2,7 +2,7 @@
 
 The public website for **HungryRaccoon**, a restaurant discovery app for Phnom Penh that is still in the making.
 
-This is a plain static page: HTML, CSS, fonts and images. It has no build step and no backend, and it is served by GitHub Pages on `hungryraccoonapp.com`. It has no download links, email collection or analytics.
+This is a plain static page: HTML, CSS, fonts and images, with no build step. It is served by GitHub Pages on `hungryraccoonapp.com`. The only server code is the Cloudflare Worker below, which also takes the homepage's beta sign-ups (#32). It has no download links or analytics.
 
 The app itself lives in a separate private repository. This repo holds only what the public site needs.
 
@@ -17,8 +17,7 @@ Run `npx serve` here and visit http://localhost:3000. Links use clean addresses 
 | `index.html`, `style.css` | The page |
 | `fonts.css`, `assets/font-*.woff2` | DM Sans and Fraunces, from Google Fonts (SIL Open Font License) |
 | `assets/logo.png` | The raccoon logo |
-| `assets/food.webp` | AI-generated illustrative food image, not a photo of a real restaurant's dish |
-| `assets/app-welcome.webp`, `assets/app-areas.webp`, `assets/app-tastes.webp` | October 3, 2026 simulator screenshots supplied by the owner, edited with image generation to remove the blue development overlay and set the time to 9:41. The area screen uses the later capture with Chamkarmon and Russei Keo selected. Used for the welcome and onboarding previews. |
+| `assets/app-*.webp` | Screenshots of the app taken on 19 October 2026 in the iOS Simulator (Expo Go, test database), signed in as made-up demo accounts (`@sophea_eats` and friends) so no real person's data is shown (#33). Resized to 828 px wide. The sign-in screen (`app-signin.webp`) is the owner's own iPhone screenshot from a TestFlight build, because Expo Go can't show Continue with Apple; its status bar was swapped for the Simulator's |
 | `i18n.js` | The English / Khmer / French switch on the homepage. English stays in `index.html`; this file holds the Khmer and French, keyed by each element's `data-i18n`, `data-i18n-alt` or `data-i18n-aria`. The choice is kept in `localStorage` on the visitor's device (not a cookie, never sent) and can be linked with `?lang=km` or `?lang=fr`. The Khmer and French were drafted by Claude and need a fluent speaker's review. The privacy and terms pages (#8) and the app screenshots (#9) stay English for now |
 | `site.js` | Makes the in-page links (How it works, Take a peek inside, Back to the top) scroll to their section without adding `#preview`, `#launch` and so on to the address bar, while still moving keyboard focus there. The links work as plain anchors without it |
 | `assets/khmer-*.woff2` | Noto Sans Khmer and Noto Serif Khmer, from Google Fonts (SIL Open Font License). `unicode-range` means they download only when Khmer text is on screen |
@@ -30,6 +29,8 @@ Run `npx serve` here and visit http://localhost:3000. Links use clean addresses 
 ## The Cloudflare Worker
 
 The domain's DNS is on Cloudflare, which sits in front of GitHub Pages (#22). `cloudflare/worker.js` runs on every request and changes only what AI agents asking for Markdown (`Accept: text/markdown`) get: the homepage as `llms.txt`, and unknown addresses as a short Markdown "not found" page with a link to `llms.txt`. Both carry `Vary: Accept`. Browsers get the same pages as before, and share links (`/l/...`) are never touched. It's deployed by hand: `cd cloudflare && npx wrangler deploy` (needs `npx wrangler login` on the Cloudflare account). A push to `main` doesn't deploy it.
+
+It also answers `POST /api/signup`, the homepage's beta sign-up form (#32): it checks the Cloudflare Turnstile token, then saves the email as a Resend contact in one segment. It needs three secrets, `RESEND_API_KEY`, `TURNSTILE_SECRET` and `SEGMENT_ID` (set each with `npx wrangler secret put <NAME>`), and the Turnstile site key goes in `index.html`'s `data-sitekey`. Deploy the Worker before the form goes live, or sign-ups fail.
 
 The Organization data has no postal `address` until the company is registered.
 

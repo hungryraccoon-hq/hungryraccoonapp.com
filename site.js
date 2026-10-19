@@ -33,3 +33,51 @@
         history.replaceState(null, "", location.pathname + location.search);
     }
 })();
+
+// Beta sign-up: sends the form to the Worker (/api/signup) and shows the
+// answer in place. The Turnstile bot check needs JavaScript anyway.
+(function () {
+    var form = document.getElementById("signup");
+    if (!form) return;
+    var error = form.querySelector(".signup-error");
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var button = form.querySelector("button");
+        button.disabled = true;
+        error.hidden = true;
+        fetch(form.action, { method: "POST", body: new FormData(form) })
+            .then(function (res) {
+                if (!res.ok) throw new Error(res.status);
+                form.querySelector(".signup-fields").hidden = true;
+                form.querySelector(".signup-done").hidden = false;
+            })
+            .catch(function () {
+                error.hidden = false;
+                button.disabled = false;
+                // A Turnstile token works once, so get a fresh one for the retry.
+                if (window.turnstile) window.turnstile.reset();
+            });
+    });
+})();
+
+// On narrow screens each row of phones swipes sideways; the dots under it show
+// which phone is in view (hidden by CSS on wider screens, where nothing scrolls).
+(function () {
+    document.querySelectorAll(".onboarding-screens").forEach(function (row) {
+        var figures = row.querySelectorAll("figure");
+        var dots = document.createElement("div");
+        dots.className = "screen-dots";
+        dots.setAttribute("aria-hidden", "true");
+        figures.forEach(function () { dots.appendChild(document.createElement("span")); });
+        row.after(dots);
+        function update() {
+            var step = figures[1].offsetLeft - figures[0].offsetLeft;
+            // The last phone can't snap to the left edge, so reaching the end means the last dot.
+            var atEnd = row.scrollLeft >= row.scrollWidth - row.clientWidth - 2;
+            var current = atEnd ? figures.length - 1 : Math.round(row.scrollLeft / step);
+            dots.childNodes.forEach(function (dot, i) { dot.classList.toggle("on", i === current); });
+        }
+        row.addEventListener("scroll", update, { passive: true });
+        update();
+    });
+})();
