@@ -20,7 +20,8 @@ function markdown(body, status) {
 
 // The confirmation a first sign-up gets, in the language the page was showing.
 // The privacy policy promises every email a way off the list, hence the
-// privacy@ line and the List-Unsubscribe header.
+// admin@ line and the List-Unsubscribe header. admin@ until hello@ and privacy@
+// receive mail (#42).
 const CONFIRM = {
     en: {
         subject: "You're on the Yummers beta list",
@@ -30,7 +31,7 @@ Thanks for signing up for the Yummers beta. You're on the list!
 
 Yummers is a food diary you share with friends: rate the places you've eaten, make lists, and see what your friends are loving. We're testing it on iPhone with a small group in Phnom Penh first, and we'll email you when your invite is ready.
 
-We'll only use this address for the beta. Didn't sign up, or want off the list? Email privacy@yummersapp.com and we'll take you off.
+We'll only use this address for the beta. Didn't sign up, or want off the list? Email admin@yummersapp.com and we'll take you off.
 
 The Yummers team
 https://yummersapp.com
@@ -44,7 +45,7 @@ https://yummersapp.com
 
 Yummers ជាសៀវភៅកត់ត្រាអាហារ ដែលអាចចែករំលែកជាមួយមិត្តភក្តិ៖ វាយតម្លៃកន្លែងដែលអ្នកបានញ៉ាំ បង្កើតបញ្ជី ហើយមើលថាមិត្តភក្តិកំពុងតែចូលចិត្តអ្វី។ យើងកំពុងសាកល្បងវាលើ iPhone ជាមួយក្រុមតូចមួយនៅភ្នំពេញសិន ហើយយើងនឹងផ្ញើអ៊ីមែលទៅអ្នក នៅពេលការអញ្ជើញរបស់អ្នករួចរាល់។
 
-យើងនឹងប្រើអាសយដ្ឋាននេះតែសម្រាប់កម្មវិធីសាកល្បងប៉ុណ្ណោះ។ មិនបានចុះឈ្មោះ ឬចង់ដកឈ្មោះចេញពីបញ្ជី? សូមផ្ញើអ៊ីមែលមក privacy@yummersapp.com ហើយយើងនឹងដកឈ្មោះអ្នកចេញ។
+យើងនឹងប្រើអាសយដ្ឋាននេះតែសម្រាប់កម្មវិធីសាកល្បងប៉ុណ្ណោះ។ មិនបានចុះឈ្មោះ ឬចង់ដកឈ្មោះចេញពីបញ្ជី? សូមផ្ញើអ៊ីមែលមក admin@yummersapp.com ហើយយើងនឹងដកឈ្មោះអ្នកចេញ។
 
 ក្រុមការងារ Yummers
 https://yummersapp.com
@@ -58,7 +59,7 @@ Merci de vous être inscrit à la bêta de Yummers. C'est noté, vous êtes sur 
 
 Yummers est un carnet culinaire à partager : notez les endroits où vous avez mangé, faites des listes et découvrez ce que vos amis adorent. Nous le testons d'abord sur iPhone avec un petit groupe à Phnom Penh, et nous vous écrirons dès que votre invitation sera prête.
 
-Nous n'utiliserons cette adresse que pour la bêta. Vous ne vous êtes pas inscrit, ou vous voulez quitter la liste ? Écrivez à privacy@yummersapp.com et nous vous retirerons.
+Nous n'utiliserons cette adresse que pour la bêta. Vous ne vous êtes pas inscrit, ou vous voulez quitter la liste ? Écrivez à admin@yummersapp.com et nous vous retirerons.
 
 L'équipe Yummers
 https://yummersapp.com
@@ -103,10 +104,10 @@ async function signup(request, env, ctx) {
         ctx.waitUntil(resend("/emails", {
             from: "Yummers <noreply@mail.yummersapp.com>",
             to: email,
-            reply_to: "hello@yummersapp.com",
+            reply_to: "admin@yummersapp.com",
             subject: mail.subject,
             text: mail.text,
-            headers: { "List-Unsubscribe": "<mailto:privacy@yummersapp.com?subject=Unsubscribe>" },
+            headers: { "List-Unsubscribe": "<mailto:admin@yummersapp.com?subject=Unsubscribe>" },
         }));
     }
     return new Response(null, { status: saved ? 204 : 502 });
