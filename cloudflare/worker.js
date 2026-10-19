@@ -145,11 +145,12 @@ ${t.offList.replace("{unsubscribe}", `${t.unsubscribe}: ${unsub}`)}
 
 // The note, the handwritten signature, then a cream strip with the banner, the
 // social icons (the site footer's, as PNGs, since Gmail drops SVG) and the opt-out line. Images come from the site's assets. White
-// and light-only, so the dark ink shows in a mail app's dark mode.
+// and light-only, so the dark ink shows in a mail app's dark mode; Gmail and Outlook darken the
+// backgrounds anyway, so the signature and icons carry their own solid white and cream (#61).
 function confirmHtml(t, lang, unsub) {
     const p = (text, style = "") => `<p style="margin:0 0 16px;${style}">${text}</p>`;
     const link = "color:#A83618;";
-    const socials = SOCIALS.map(([name, url]) => `<a href="${url}" style="display:inline-block;margin:0 8px;"><img src="https://yummersapp.com/assets/email-${name.toLowerCase()}.png" width="22" height="22" alt="${name}" style="display:block;border:0;"></a>`).join("");
+    const socials = SOCIALS.map(([name, url]) => `<a href="${url}" style="display:inline-block;margin:0 4px;"><img src="https://yummersapp.com/assets/email-${name.toLowerCase()}.png" width="32" height="32" alt="${name}" style="display:block;border:0;"></a>`).join("");
     return `<!doctype html>
 <html lang="${lang}">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>${t.subject}</title></head>
