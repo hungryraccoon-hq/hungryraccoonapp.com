@@ -1,7 +1,8 @@
 // Runs on Cloudflare in front of GitHub Pages. Clients that ask for Markdown
 // (Accept: text/markdown) get the homepage as llms.txt and a short Markdown
-// "not found" page; POST /api/signup saves a beta sign-up; everything else
-// passes through unchanged.
+// "not found" page; POST /api/signup takes a beta sign-up, and /api/confirm and
+// /api/unsubscribe answer the links in its emails; everything else passes
+// through unchanged.
 const NOT_FOUND = `# Page not found
 
 There's no page at this address on yummersapp.com.
@@ -24,6 +25,8 @@ function markdown(body, status) {
 // reason it has no List-Unsubscribe header; the privacy policy's unsubscribe
 // link is the {unsubscribe} line (see unsubscribe()). Replies go to admin@
 // until hello@ and privacy@ receive mail (#44).
+// The verify* strings are the note that comes first, with the confirm link (#46);
+// join*, joined*, expired* and leave*/left* are the pages its links open.
 const CONTACT = "admin@yummersapp.com";
 const CONFIRM = {
     en: {
@@ -40,6 +43,19 @@ const CONFIRM = {
         leaveText: "We'll delete your email address and won't write to you again.",
         leftTitle: "You're off the list.",
         leftText: "Your email address is deleted. Changed your mind? You can sign up again on yummersapp.com.",
+        verifySubject: "Confirm your email for the Yummers beta",
+        verifyNote: [
+            "Hi,",
+            "Thanks for signing up for the Yummers beta. Press the link below to confirm it's your email, and you're on the list.",
+        ],
+        verifyButton: "Confirm my email",
+        verifyIgnore: "Didn't sign up? Just ignore this email and we won't add you to the list.",
+        joinTitle: "Join the Yummers beta list?",
+        joinText: "Press the button to confirm your email.",
+        joinedTitle: "You're on the list!",
+        joinedText: "We've sent you a short welcome note, and we'll write again when your invite is ready.",
+        expiredTitle: "This link has expired.",
+        expiredText: "Sign up again on yummersapp.com and we'll send you a new one.",
     },
     km: {
         subject: "អរគុណដែលបានចូលរួមសាកល្បង Yummers",
@@ -55,6 +71,19 @@ const CONFIRM = {
         leaveText: "យើងនឹងលុបអាសយដ្ឋានអ៊ីមែលរបស់អ្នក ហើយនឹងមិនផ្ញើអ៊ីមែលទៅអ្នកទៀតទេ។",
         leftTitle: "អ្នកបានចាកចេញពីបញ្ជីហើយ។",
         leftText: "អាសយដ្ឋានអ៊ីមែលរបស់អ្នកត្រូវបានលុបហើយ។ ប្ដូរចិត្តវិញ? អ្នកអាចចុះឈ្មោះម្ដងទៀតនៅ yummersapp.com។",
+        verifySubject: "បញ្ជាក់អ៊ីមែលរបស់អ្នក សម្រាប់ការសាកល្បង Yummers",
+        verifyNote: [
+            "សួស្តី,",
+            "អរគុណដែលបានចុះឈ្មោះសាកល្បង Yummers។ សូមចុចតំណខាងក្រោម ដើម្បីបញ្ជាក់ថាជាអ៊ីមែលរបស់អ្នក ហើយអ្នកនឹងមានឈ្មោះក្នុងបញ្ជី។",
+        ],
+        verifyButton: "បញ្ជាក់អ៊ីមែលរបស់ខ្ញុំ",
+        verifyIgnore: "មិនបានចុះឈ្មោះទេ? គ្រាន់តែមិនអើពើនឹងអ៊ីមែលនេះ យើងនឹងមិនដាក់ឈ្មោះអ្នកក្នុងបញ្ជីទេ។",
+        joinTitle: "ចូលក្នុងបញ្ជីសាកល្បង Yummers?",
+        joinText: "ចុចប៊ូតុងខាងក្រោម ដើម្បីបញ្ជាក់អ៊ីមែលរបស់អ្នក។",
+        joinedTitle: "អ្នកមានឈ្មោះក្នុងបញ្ជីហើយ!",
+        joinedText: "យើងបានផ្ញើសារស្វាគមន៍ខ្លីមួយទៅអ្នកហើយ។ យើងនឹងផ្ញើអ៊ីមែលម្ដងទៀត នៅពេលការអញ្ជើញរបស់អ្នករួចរាល់។",
+        expiredTitle: "តំណនេះផុតកំណត់ហើយ។",
+        expiredText: "សូមចុះឈ្មោះម្ដងទៀតនៅ yummersapp.com ហើយយើងនឹងផ្ញើតំណថ្មីទៅអ្នក។",
     },
     fr: {
         subject: "Merci d'avoir rejoint la bêta Yummers",
@@ -70,6 +99,19 @@ const CONFIRM = {
         leaveText: "Nous supprimerons votre adresse e-mail et ne vous écrirons plus.",
         leftTitle: "C'est fait, vous n'êtes plus sur la liste.",
         leftText: "Votre adresse e-mail est supprimée. Vous avez changé d'avis ? Vous pouvez vous réinscrire sur yummersapp.com.",
+        verifySubject: "Confirmez votre e-mail pour la bêta Yummers",
+        verifyNote: [
+            "Bonjour,",
+            "Merci de vous être inscrit à la bêta de Yummers. Appuyez sur le lien ci-dessous pour confirmer votre adresse e-mail, et vous serez sur la liste.",
+        ],
+        verifyButton: "Confirmer mon e-mail",
+        verifyIgnore: "Vous ne vous êtes pas inscrit ? Ignorez simplement cet e-mail : nous ne vous ajouterons pas à la liste.",
+        joinTitle: "Rejoindre la liste de la bêta Yummers ?",
+        joinText: "Appuyez sur le bouton pour confirmer votre e-mail.",
+        joinedTitle: "C'est noté, vous êtes sur la liste !",
+        joinedText: "Nous vous avons envoyé un petit mot de bienvenue. Nous vous écrirons dès que votre invitation sera prête.",
+        expiredTitle: "Ce lien a expiré.",
+        expiredText: "Inscrivez-vous à nouveau sur yummersapp.com et nous vous enverrons un nouveau lien.",
     },
 };
 
@@ -108,10 +150,19 @@ function resendApi(env, method, path, body) {
     });
 }
 
-// The homepage's beta sign-up form. Checks the Turnstile token, saves the
-// email as a Resend contact in the beta sign-up segment, and emails a first
-// sign-up a confirmation.
-async function signup(request, env, ctx) {
+const FROM = "Sovithyea from Yummers <sovithyea@mail.yummersapp.com>";
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
+// The strings for a form's or link's lang, falling back to English.
+function language(lang) {
+    const known = Object.hasOwn(CONFIRM, lang);
+    return { t: known ? CONFIRM[lang] : CONFIRM.en, lang: known ? lang : "en" };
+}
+
+// The homepage's beta sign-up form. Checks the Turnstile token and emails a link
+// to confirm the address; nothing joins the list until it's pressed, so nobody can
+// sign up someone else (#46). A pending sign-up waits in KV for 7 days.
+async function signup(request, env) {
     const form = await request.formData().catch(() => null);
     const email = String(form?.get("email") || "").trim().toLowerCase();
     if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -126,8 +177,49 @@ async function signup(request, env, ctx) {
             remoteip: request.headers.get("CF-Connecting-IP") || "",
         }),
     });
-    if (!(await check.json()).success) return new Response(null, { status: 403 });
+    const passed = await check.json();
+    // The token must come from our page, not another site borrowing our site key.
+    if (!passed.success || passed.hostname !== "yummersapp.com") return new Response(null, { status: 403 });
 
+    // One confirm email a day per address, so the form can't flood an inbox. The
+    // answer is the same either way, so it doesn't show who has signed up.
+    const sent = `sent:${email}`;
+    if (await env.SIGNUPS.get(sent)) return new Response(null, { status: 204 });
+    const token = crypto.randomUUID();
+    await env.SIGNUPS.put(`confirm:${token}`, email, { expirationTtl: 7 * 86400 });
+    const { t, lang } = language(String(form.get("lang")));
+    const link = `https://yummersapp.com/api/confirm?token=${token}&lang=${lang}`;
+    // The same plain note as the welcome one, with the link as its last paragraph.
+    const note = (last) => ({ ...t, subject: t.verifySubject, note: [...t.verifyNote, last], offList: t.verifyIgnore });
+    const res = await resendApi(env, "POST", "/emails", {
+        from: FROM,
+        to: email,
+        reply_to: CONTACT,
+        subject: t.verifySubject,
+        html: confirmHtml(note(`<a href="${link}" style="color:#A83618;">${t.verifyButton}</a>`), lang),
+        text: confirmText(note(`${t.verifyButton}: ${link}`)),
+    });
+    if (!res.ok) return new Response(null, { status: 502 });
+    await env.SIGNUPS.put(sent, "1", { expirationTtl: 86400 });
+    return new Response(null, { status: 204 });
+}
+
+// The confirm link. Like unsubscribe(), opening it (GET) only asks, because mail
+// scanners open links on their own; the button POSTs, which joins the list.
+// Pressing it again says the same until the link expires.
+async function confirm(request, env, ctx, url) {
+    const { t, lang } = language(url.searchParams.get("lang"));
+    const token = url.searchParams.get("token") || "";
+    const email = UUID.test(token) && await env.SIGNUPS.get(`confirm:${token}`);
+    if (!email) return page(lang, t.expiredTitle, t.expiredText);
+    if (request.method !== "POST") return page(lang, t.joinTitle, t.joinText, t.verifyButton);
+    if (!(await join(env, ctx, email, t, lang))) return new Response(null, { status: 502 });
+    return page(lang, t.joinedTitle, t.joinedText);
+}
+
+// Saves a confirmed email as a Resend contact in the beta sign-up segment, and
+// sends a new contact the welcome note.
+async function join(env, ctx, email, t, lang) {
     const resend = (path, body) => resendApi(env, "POST", path, body);
     // Resend's create also answers OK for an existing contact (same id), so look the
     // address up first: an existing one is only added to the segment, and not emailed.
@@ -136,52 +228,48 @@ async function signup(request, env, ctx) {
         ? await resend(`/contacts/${encodeURIComponent(email)}/segments/${env.SEGMENT_ID}`, {})
         : await resend("/contacts", { email, segments: [{ id: env.SEGMENT_ID }] });
     const created = !exists && res.ok;
-    const saved = res.ok;
-    // Only a new contact is emailed, so signing someone up again can't send them repeat mail.
-    // The send runs after the reply, and a failed send doesn't fail the sign-up.
+    // Only a new contact is emailed, so joining again can't send them repeat mail.
+    // The send runs after the reply, and a failed send doesn't fail joining.
     if (created) ctx.waitUntil(res.json().then(({ id }) => {
-        const lang = String(form.get("lang"));
-        const known = Object.hasOwn(CONFIRM, lang);
-        const t = known ? CONFIRM[lang] : CONFIRM.en;
         // The contact's id is the unsubscribe link's key: only this email carries it.
-        const unsub = `https://yummersapp.com/api/unsubscribe?id=${id}&lang=${known ? lang : "en"}`;
+        const unsub = `https://yummersapp.com/api/unsubscribe?id=${id}&lang=${lang}`;
         return resend("/emails", {
-            from: "Sovithyea from Yummers <sovithyea@mail.yummersapp.com>",
+            from: FROM,
             to: email,
             reply_to: CONTACT,
             subject: t.subject,
-            html: confirmHtml(t, known ? lang : "en", unsub),
+            html: confirmHtml(t, lang, unsub),
             text: confirmText(t, unsub),
         });
     }));
-    return new Response(null, { status: saved ? 204 : 502 });
+    return res.ok;
 }
 
-// The confirmation email's unsubscribe link. Opening it (GET) only asks, because
+// The welcome note's unsubscribe link. Opening it (GET) only asks, because
 // mail scanners open links on their own; the button POSTs, which deletes the
 // contact outright.
 async function unsubscribe(request, env, url) {
-    const lang = url.searchParams.get("lang");
-    const known = Object.hasOwn(CONFIRM, lang);
-    const t = known ? CONFIRM[lang] : CONFIRM.en;
+    const { t, lang } = language(url.searchParams.get("lang"));
     const id = url.searchParams.get("id") || "";
-    const valid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id);
-    let title = t.leaveTitle, text = t.leaveText, button = valid;
-    if (request.method === "POST") {
-        const res = valid ? await resendApi(env, "DELETE", `/contacts/${id}`) : null;
-        // Already gone (404) counts as done: the link may be pressed twice.
-        if (!res || !(res.ok || res.status === 404)) return new Response(null, { status: valid ? 502 : 400 });
-        title = t.leftTitle; text = t.leftText; button = false;
-    }
+    const valid = UUID.test(id);
+    if (request.method !== "POST") return page(lang, t.leaveTitle, t.leaveText, valid && t.unsubscribe);
+    const res = valid ? await resendApi(env, "DELETE", `/contacts/${id}`) : null;
+    // Already gone (404) counts as done: the link may be pressed twice.
+    if (!res || !(res.ok || res.status === 404)) return new Response(null, { status: valid ? 502 : 400 });
+    return page(lang, t.leftTitle, t.leftText);
+}
+
+// The small page the emails' links open. A button, if given, POSTs back to the same address.
+function page(lang, title, text, button) {
     const font = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
     return new Response(`<!doctype html>
-<html lang="${known ? lang : "en"}">
+<html lang="${lang}">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>${title}</title></head>
 <body style="margin:0;padding:48px 16px;background:#F5F0E8;font-family:${font};color:#2C2420;text-align:center;">
   <img src="/assets/logo.png" width="64" height="64" alt="Yummers" style="border-radius:16px;">
   <h1 style="font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.4;margin:20px 0 8px;">${title}</h1>
   <p style="font-size:16px;line-height:1.5;color:#665A4E;max-width:420px;margin:0 auto 24px;">${text}</p>
-  ${button ? `<form method="post"><button style="font:600 15px ${font};background:#A83618;color:#fff;border:0;border-radius:999px;padding:13px 24px;cursor:pointer;">${t.unsubscribe}</button></form>` : `<a href="/" style="color:#A83618;font-weight:600;text-decoration:none;">yummersapp.com</a>`}
+  ${button ? `<form method="post"><button style="font:600 15px ${font};background:#A83618;color:#fff;border:0;border-radius:999px;padding:13px 24px;cursor:pointer;">${button}</button></form>` : `<a href="/" style="color:#A83618;font-weight:600;text-decoration:none;">yummersapp.com</a>`}
 </body>
 </html>`, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
 }
@@ -189,7 +277,8 @@ async function unsubscribe(request, env, url) {
 export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
-        if (url.pathname === "/api/signup" && request.method === "POST") return signup(request, env, ctx);
+        if (url.pathname === "/api/signup" && request.method === "POST") return signup(request, env);
+        if (url.pathname === "/api/confirm") return confirm(request, env, ctx, url);
         if (url.pathname === "/api/unsubscribe") return unsubscribe(request, env, url);
         const wantsMarkdown = (request.headers.get("Accept") || "").includes("text/markdown");
 
