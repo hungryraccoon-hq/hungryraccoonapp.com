@@ -19,8 +19,8 @@ function markdown(body, status) {
 }
 
 // The confirmation a first sign-up gets, in the language the page was showing.
-// The privacy policy promises every email a way off the list, hence offList
-// and the List-Unsubscribe header. admin@ until hello@ and privacy@ receive
+// The privacy policy promises every email an unsubscribe link, hence offList
+// and the List-Unsubscribe headers (see unsubscribe()). admin@ until hello@ and privacy@ receive
 // mail (#44). The layout matches the app's sign-in emails (supabase/templates).
 const CONTACT = "admin@yummersapp.com";
 const CONFIRM = {
@@ -37,7 +37,12 @@ const CONFIRM = {
             "We'll email you an invite with a link to install it through TestFlight.",
         ],
         button: "Take a peek inside",
-        offList: "We'll only use this address for the beta. Didn't sign up, or want off the list? Email {contact} and we'll take you off.",
+        offList: "We'll only use this address for the beta. Didn't sign up, or changed your mind? {unsubscribe}.",
+        unsubscribe: "Take me off the list",
+        leaveTitle: "Leave the beta list?",
+        leaveText: "We'll delete your email address and won't write to you again.",
+        leftTitle: "You're off the list.",
+        leftText: "Your email address is deleted. Changed your mind? You can sign up again on yummersapp.com.",
         team: "The Yummers team",
         footer: "Made for Phnom Penh. And your appetite.",
         privacy: "Privacy",
@@ -55,7 +60,12 @@ const CONFIRM = {
             "យើងនឹងផ្ញើអ៊ីមែលអញ្ជើញទៅអ្នក ជាមួយតំណសម្រាប់ដំឡើងតាម TestFlight។",
         ],
         button: "ចូលមើលបន្តិចមក",
-        offList: "យើងនឹងប្រើអាសយដ្ឋាននេះតែសម្រាប់កម្មវិធីសាកល្បងប៉ុណ្ណោះ។ មិនបានចុះឈ្មោះ ឬចង់ដកឈ្មោះចេញពីបញ្ជី? សូមផ្ញើអ៊ីមែលមក {contact} ហើយយើងនឹងដកឈ្មោះអ្នកចេញ។",
+        offList: "យើងនឹងប្រើអាសយដ្ឋាននេះតែសម្រាប់កម្មវិធីសាកល្បងប៉ុណ្ណោះ។ មិនបានចុះឈ្មោះ ឬប្ដូរចិត្ត? {unsubscribe}។",
+        unsubscribe: "ដកឈ្មោះខ្ញុំចេញពីបញ្ជី",
+        leaveTitle: "ចាកចេញពីបញ្ជីសាកល្បង?",
+        leaveText: "យើងនឹងលុបអាសយដ្ឋានអ៊ីមែលរបស់អ្នក ហើយនឹងមិនផ្ញើអ៊ីមែលទៅអ្នកទៀតទេ។",
+        leftTitle: "អ្នកបានចាកចេញពីបញ្ជីហើយ។",
+        leftText: "អាសយដ្ឋានអ៊ីមែលរបស់អ្នកត្រូវបានលុបហើយ។ ប្ដូរចិត្តវិញ? អ្នកអាចចុះឈ្មោះម្ដងទៀតនៅ yummersapp.com។",
         team: "ក្រុមការងារ Yummers",
         footer: "បង្កើតឡើងសម្រាប់ភ្នំពេញ និងចំណង់អាហាររបស់អ្នក",
         privacy: "ឯកជនភាព",
@@ -73,14 +83,19 @@ const CONFIRM = {
             "Nous vous enverrons une invitation par e-mail, avec un lien pour l'installer via TestFlight.",
         ],
         button: "Jetez un œil",
-        offList: "Nous n'utiliserons cette adresse que pour la bêta. Vous ne vous êtes pas inscrit, ou vous voulez quitter la liste ? Écrivez à {contact} et nous vous retirerons.",
+        offList: "Nous n'utiliserons cette adresse que pour la bêta. Vous ne vous êtes pas inscrit, ou vous avez changé d'avis ? {unsubscribe}.",
+        unsubscribe: "Me retirer de la liste",
+        leaveTitle: "Quitter la liste de la bêta ?",
+        leaveText: "Nous supprimerons votre adresse e-mail et ne vous écrirons plus.",
+        leftTitle: "C'est fait, vous n'êtes plus sur la liste.",
+        leftText: "Votre adresse e-mail est supprimée. Vous avez changé d'avis ? Vous pouvez vous réinscrire sur yummersapp.com.",
         team: "L'équipe Yummers",
         footer: "Fait pour Phnom Penh. Et pour votre appétit.",
         privacy: "Confidentialité",
     },
 };
 
-function confirmText(t) {
+function confirmText(t, unsub) {
     return `${t.heading}
 
 ${t.thanks}
@@ -92,14 +107,14 @@ ${t.steps.map((s, i) => `${i + 1}. ${s}`).join("\n")}
 
 ${t.button}: https://yummersapp.com
 
-${t.offList.replace("{contact}", CONTACT)}
+${t.offList.replace("{unsubscribe}", `${t.unsubscribe}: ${unsub}`)}
 
 ${t.team}
 `;
 }
 
 // Inline styles and tables, because email apps ignore most CSS.
-function confirmHtml(t, lang) {
+function confirmHtml(t, lang, unsub) {
     const font = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
     const link = "color:#A83618;text-decoration:none;font-weight:600;";
     const steps = t.steps.map((s, i) => `
@@ -142,7 +157,7 @@ function confirmHtml(t, lang) {
             </td></tr>
           </table>
           <p style="margin:24px 0 0;font-size:16px;line-height:1.5;color:#2C2420;">${t.team}</p>
-          <p style="margin:20px 0 0;font-size:14px;line-height:1.5;color:#8A7D70;">${t.offList.replace("{contact}", `<a href="mailto:${CONTACT}" style="${link}">${CONTACT}</a>`)}</p>
+          <p style="margin:20px 0 0;font-size:14px;line-height:1.5;color:#8A7D70;">${t.offList.replace("{unsubscribe}", `<a href="${unsub}" style="${link}">${t.unsubscribe}</a>`)}</p>
         </div>
       </td></tr>
       <tr><td align="center" style="padding:20px 8px 0;font-family:${font};font-size:13px;line-height:1.5;color:#8A7D70;">
@@ -154,6 +169,14 @@ function confirmHtml(t, lang) {
 </table>
 </body>
 </html>`;
+}
+
+function resendApi(env, method, path, body) {
+    return fetch(`https://api.resend.com${path}`, {
+        method,
+        headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+        body: body && JSON.stringify(body),
+    });
 }
 
 // The homepage's beta sign-up form. Checks the Turnstile token, saves the
@@ -176,38 +199,70 @@ async function signup(request, env, ctx) {
     });
     if (!(await check.json()).success) return new Response(null, { status: 403 });
 
-    const resend = (path, body) => fetch(`https://api.resend.com${path}`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-    });
+    const resend = (path, body) => resendApi(env, "POST", path, body);
     // Signing up twice fails to create the contact, so add the existing one to the segment.
-    const created = (await resend("/contacts", { email, segments: [{ id: env.SEGMENT_ID }] })).ok;
+    const res = await resend("/contacts", { email, segments: [{ id: env.SEGMENT_ID }] });
+    const created = res.ok;
     const saved = created
         || (await resend(`/contacts/${encodeURIComponent(email)}/segments/${env.SEGMENT_ID}`, {})).ok;
     // Only a new contact is emailed, so signing someone up again can't send them repeat mail.
     // The send runs after the reply, and a failed send doesn't fail the sign-up.
-    if (created) {
+    if (created) ctx.waitUntil(res.json().then(({ id }) => {
         const lang = String(form.get("lang"));
         const known = Object.hasOwn(CONFIRM, lang);
         const t = known ? CONFIRM[lang] : CONFIRM.en;
-        ctx.waitUntil(resend("/emails", {
+        // The contact's id is the unsubscribe link's key: only this email carries it.
+        const unsub = `https://yummersapp.com/api/unsubscribe?id=${id}&lang=${known ? lang : "en"}`;
+        return resend("/emails", {
             from: "Yummers <noreply@mail.yummersapp.com>",
             to: email,
             reply_to: CONTACT,
             subject: t.subject,
-            html: confirmHtml(t, known ? lang : "en"),
-            text: confirmText(t),
-            headers: { "List-Unsubscribe": `<mailto:${CONTACT}?subject=Unsubscribe>` },
-        }));
-    }
+            html: confirmHtml(t, known ? lang : "en", unsub),
+            text: confirmText(t, unsub),
+            headers: {
+                "List-Unsubscribe": `<${unsub}>, <mailto:${CONTACT}?subject=Unsubscribe>`,
+                "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+            },
+        });
+    }));
     return new Response(null, { status: saved ? 204 : 502 });
+}
+
+// The confirmation email's unsubscribe link. Opening it (GET) only asks, because
+// mail scanners open links on their own; the button, or a mail app's one-click
+// Unsubscribe (RFC 8058), POSTs, which deletes the contact outright.
+async function unsubscribe(request, env, url) {
+    const lang = url.searchParams.get("lang");
+    const known = Object.hasOwn(CONFIRM, lang);
+    const t = known ? CONFIRM[lang] : CONFIRM.en;
+    const id = url.searchParams.get("id") || "";
+    const valid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id);
+    let title = t.leaveTitle, text = t.leaveText, button = valid;
+    if (request.method === "POST") {
+        const res = valid ? await resendApi(env, "DELETE", `/contacts/${id}`) : null;
+        // Already gone (404) counts as done: the link may be pressed twice.
+        if (!res || !(res.ok || res.status === 404)) return new Response(null, { status: valid ? 502 : 400 });
+        title = t.leftTitle; text = t.leftText; button = false;
+    }
+    const font = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
+    return new Response(`<!doctype html>
+<html lang="${known ? lang : "en"}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>${title}</title></head>
+<body style="margin:0;padding:48px 16px;background:#F5F0E8;font-family:${font};color:#2C2420;text-align:center;">
+  <img src="/assets/logo.png" width="64" height="64" alt="Yummers" style="border-radius:16px;">
+  <h1 style="font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.4;margin:20px 0 8px;">${title}</h1>
+  <p style="font-size:16px;line-height:1.5;color:#665A4E;max-width:420px;margin:0 auto 24px;">${text}</p>
+  ${button ? `<form method="post"><button style="font:600 15px ${font};background:#A83618;color:#fff;border:0;border-radius:999px;padding:13px 24px;cursor:pointer;">${t.unsubscribe}</button></form>` : `<a href="/" style="color:#A83618;font-weight:600;text-decoration:none;">yummersapp.com</a>`}
+</body>
+</html>`, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
 }
 
 export default {
     async fetch(request, env, ctx) {
         const url = new URL(request.url);
         if (url.pathname === "/api/signup" && request.method === "POST") return signup(request, env, ctx);
+        if (url.pathname === "/api/unsubscribe") return unsubscribe(request, env, url);
         const wantsMarkdown = (request.headers.get("Accept") || "").includes("text/markdown");
 
         if (wantsMarkdown && url.pathname === "/") {
