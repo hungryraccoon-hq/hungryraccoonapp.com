@@ -1,6 +1,6 @@
 // In-page links (How it works, Take a peek inside, Back to the top, ...)
 // scroll to their section without adding #preview, #launch and so on to the
-// address bar, so the link stays hungryraccoonapp.com/ (plus ?lang= when a
+// address bar, so the link stays yummersapp.com/ (plus ?lang= when a
 // language is picked). Without this script the links still work as normal
 // anchors.
 (function () {

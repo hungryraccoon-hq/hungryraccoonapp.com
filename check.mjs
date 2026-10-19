@@ -1,7 +1,7 @@
 // Checks what AI agents look for on the site: llms.txt, the About and Contact
 // pages, the homepage's Organization data and the sitemap.
 // Usage: node check.mjs [base URL]   (default: the live site)
-const base = (process.argv[2] || "https://hungryraccoonapp.com").replace(/\/$/, "");
+const base = (process.argv[2] || "https://yummersapp.com").replace(/\/$/, "");
 let failed = 0;
 
 function check(name, ok) {
@@ -34,7 +34,7 @@ check("Organization has a contactPoint with an email and contactType",
     !!(org?.contactPoint?.email && org.contactPoint.contactType));
 
 const sitemap = await get("/sitemap.xml");
-const urls = [...sitemap.body.matchAll(/<loc>https:\/\/hungryraccoonapp\.com(\/[^<]*)<\/loc>/g)].map((m) => m[1]);
+const urls = [...sitemap.body.matchAll(/<loc>https:\/\/yummersapp\.com(\/[^<]*)<\/loc>/g)].map((m) => m[1]);
 check("sitemap lists the About and Contact pages", urls.includes("/about") && urls.includes("/contact"));
 for (const path of urls) check(`sitemap URL ${path} responds 200`, (await get(path)).status === 200);
 

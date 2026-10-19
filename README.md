@@ -1,8 +1,10 @@
-# hungryraccoonapp.com
+# yummersapp.com
 
-The public website for **HungryRaccoon**, a restaurant discovery app for Phnom Penh that is still in the making.
+The public website for **Yummers**, a restaurant discovery app for Phnom Penh that is still in the making.
 
-This is a plain static page: HTML, CSS, fonts and images, with no build step. It is served by GitHub Pages on `hungryraccoonapp.com`. The only server code is the Cloudflare Worker below, which also takes the homepage's beta sign-ups (#32). It has no download links or analytics.
+The app was called HungryRaccoon until October 2026 (D85). The old domain, hungryraccoonapp.com, forwards here with a Cloudflare redirect rule that keeps the path and query, so share links already sent (`/l/...`) still open (#35). The repo keeps its old name.
+
+This is a plain static page: HTML, CSS, fonts and images, with no build step. It is served by GitHub Pages on `yummersapp.com`. The only server code is the Cloudflare Worker below, which also takes the homepage's beta sign-ups (#32). It has no download links or analytics.
 
 The app itself lives in a separate private repository. This repo holds only what the public site needs.
 
@@ -23,7 +25,7 @@ Run `npx serve` here and visit http://localhost:3000. Links use clean addresses 
 | `assets/khmer-*.woff2` | Noto Sans Khmer and Noto Serif Khmer, from Google Fonts (SIL Open Font License). `unicode-range` means they download only when Khmer text is on screen |
 | `CNAME` | Tells GitHub Pages the custom domain |
 | `about.html`, `contact.html` | About and Contact pages, in the same layout as the privacy policy and terms. AI assistants look for these (with the privacy policy) to check a business is real. English only for now, like the legal pages |
-| `llms.txt` | A plain-text summary for AI assistants ([llmstxt.org](https://llmstxt.org/) format), including when to suggest HungryRaccoon and when not to. Keep it in step with the About page |
+| `llms.txt` | A plain-text summary for AI assistants ([llmstxt.org](https://llmstxt.org/) format), including when to suggest Yummers and when not to. Keep it in step with the About page |
 | `check.mjs` | `node check.mjs` checks the live site (or `node check.mjs http://localhost:3000`): `llms.txt`, the About and Contact pages, the homepage's Organization data, the sitemap, footer links and the Worker's Markdown responses |
 
 ## The Cloudflare Worker
