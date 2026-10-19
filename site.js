@@ -45,7 +45,9 @@
         var button = form.querySelector("button");
         button.disabled = true;
         error.hidden = true;
-        fetch(form.action, { method: "POST", body: new FormData(form) })
+        var body = new FormData(form);
+        body.set("lang", document.documentElement.lang); // the confirmation email's language
+        fetch(form.action, { method: "POST", body: body })
             .then(function (res) {
                 if (!res.ok) throw new Error(res.status);
                 form.querySelector(".signup-fields").hidden = true;
