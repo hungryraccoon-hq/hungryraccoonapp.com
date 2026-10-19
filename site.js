@@ -27,10 +27,14 @@
         go(target);
     });
 
-    // An old link that still carries #launch etc. lands on its section as
-    // usual; the # is then dropped from the address bar.
+    // A link from another page (/#launch on the privacy page's Join button, or
+    // an old shared link) lands on its section; the # is then dropped from the
+    // address bar. This script runs before the browser's own jump to the #, and
+    // dropping it cancels that jump, so scroll here instead.
     if (location.hash) {
+        var landing = document.getElementById(location.hash.slice(1));
         history.replaceState(null, "", location.pathname + location.search);
+        if (landing) go(landing);
     }
 })();
 
