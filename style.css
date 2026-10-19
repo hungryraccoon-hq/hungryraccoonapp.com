@@ -950,7 +950,15 @@ html {
         gap: 14px
     }
 
+    /* Two by two, so no link sits alone on its own row. Khmer's short labels fit one row. */
     .footer-links {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 0 28px
+    }
+
+    html:lang(km) .footer-links {
+        display: flex;
         flex-wrap: wrap;
         gap: 4px 22px
     }
@@ -1121,6 +1129,9 @@ html {
     .screen-dots span.on { width: 22px; background: var(--accent); }
 }
 .screen-dots { display: none; }
+/* site.js: on phones the row is pinned and scrolling down moves it, so no sideways swipe or snap. */
+.pinned .screen-pin { position: sticky; }
+.pinned .onboarding-screens { overflow-x: hidden; scroll-snap-type: none; }
 
 .ticker .ticker-star { fill: currentColor; stroke: none; }
 
@@ -1132,6 +1143,7 @@ html {
 
 /* English / Khmer / French switch (i18n.js) */
 .lang-switch {
+    position: relative;
     display: inline-flex;
     border: 1px solid var(--line);
     border-radius: 999px;
@@ -1146,7 +1158,9 @@ html {
     border-radius: 999px;
     padding: 8px 11px;
     min-height: 34px;
-    cursor: pointer
+    cursor: pointer;
+    position: relative;
+    transition: color .3s ease
 }
 
 .lang-switch button:hover {
@@ -1223,4 +1237,58 @@ html:lang(km) .onboarding h2 {
     nav .lang-switch {
         margin-left: 8px
     }
+}
+
+/* The pill behind the chosen language; i18n.js sets where it sits.
+   Until it does (or without JavaScript) the chosen button keeps its own fill. */
+.lang-switch[style] button[aria-pressed="true"] {
+    background: none
+}
+
+.lang-switch[style]:before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 0;
+    width: var(--pill-w);
+    transform: translateX(var(--pill-x));
+    border-radius: 999px;
+    background: var(--ink)
+}
+
+/* Animate only once someone switches, so the pill doesn't slide in on load. */
+.lang-slide:before {
+    transition: transform .3s ease, width .3s ease
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lang-slide:before,
+    .lang-switch button {
+        transition: none
+    }
+}
+
+/* Khmer and French: a ring round the footer links, labelled once, says those pages are in English. */
+html:lang(km) .footer-links,
+html:lang(fr) .footer-links {
+    position: relative;
+    padding: 2px 20px;
+    border: 1.5px solid var(--accent);
+    border-radius: 24px
+}
+
+.footer-lang {
+    position: absolute;
+    top: -9px;
+    left: 16px;
+    padding: 0 6px;
+    background: var(--paper);
+    color: var(--accent);
+    font-size: 11px;
+    line-height: 16px
+}
+
+.footer-lang:empty {
+    display: none
 }
