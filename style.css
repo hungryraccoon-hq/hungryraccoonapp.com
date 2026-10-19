@@ -94,6 +94,13 @@ svg {
     line-height: 1
 }
 
+/* The " | Food Lists App" after the name: dropped where it would wrap. */
+@media (max-width: 1000px) {
+    .brand-tag {
+        display: none
+    }
+}
+
 .brand-dot {
     color: var(--orange)
 }
