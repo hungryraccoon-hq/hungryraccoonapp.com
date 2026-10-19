@@ -18,155 +18,84 @@ function markdown(body, status) {
     });
 }
 
-// The confirmation a first sign-up gets, in the language the page was showing.
-// The privacy policy promises every email an unsubscribe link, hence offList
-// and the List-Unsubscribe headers (see unsubscribe()). admin@ until hello@ and privacy@ receive
-// mail (#44). The layout matches the app's sign-in emails (supabase/templates).
+// The confirmation a first sign-up gets, in the language the page was showing:
+// a short personal note from the founder rather than a designed email, so Gmail
+// files it with personal mail, not Promotions (owner, 19 Oct). For the same
+// reason it has no List-Unsubscribe header; the privacy policy's unsubscribe
+// link is the {unsubscribe} line (see unsubscribe()). Replies go to admin@
+// until hello@ and privacy@ receive mail (#44).
 const CONTACT = "admin@yummersapp.com";
 const CONFIRM = {
     en: {
-        subject: "You're on the Yummers beta list",
-        badge: "iPhone beta",
-        heading: "You're on the list!",
-        thanks: "Thanks for signing up for the Yummers beta.",
-        about: "Yummers is a food diary you share with friends: rate the places you've eaten, make lists, and see what your friends are loving.",
-        nextTitle: "What happens next",
-        steps: [
-            "We're testing with a small group in Phnom Penh first.",
-            "The beta opens in November, on iPhone only.",
-            "We'll email you an invite with a link to install it through TestFlight.",
+        subject: "Thanks for joining the Yummers beta",
+        note: [
+            "Hi,",
+            "Thanks for signing up for the Yummers beta. I'm Sovithyea, and I'm building Yummers here in Phnom Penh: an app to rate the places you've eaten, keep lists of where to go next, and see where your friends are eating.",
+            "We're testing it with a small group on iPhone first. The beta opens in November, and I'll email you an invite as soon as there's a spot for you.",
+            "If there's a place you think everyone should try, hit reply and tell me. I read every email.",
         ],
-        button: "Take a peek inside",
-        offList: "We'll only use this address for the beta. Didn't sign up, or changed your mind? {unsubscribe}.",
+        offList: "Didn't sign up, or changed your mind? {unsubscribe}",
         unsubscribe: "Take me off the list",
         leaveTitle: "Leave the beta list?",
         leaveText: "We'll delete your email address and won't write to you again.",
         leftTitle: "You're off the list.",
         leftText: "Your email address is deleted. Changed your mind? You can sign up again on yummersapp.com.",
-        team: "The Yummers team",
-        footer: "Made for Phnom Penh. And your appetite.",
-        privacy: "Privacy",
     },
     km: {
-        subject: "អ្នកមានឈ្មោះក្នុងបញ្ជីសាកល្បង Yummers ហើយ",
-        badge: "សាកល្បងលើ iPhone",
-        heading: "អ្នកមានឈ្មោះក្នុងបញ្ជីហើយ!",
-        thanks: "អរគុណដែលបានចុះឈ្មោះសាកល្បង Yummers។",
-        about: "Yummers ជាសៀវភៅកត់ត្រាអាហារ ដែលអាចចែករំលែកជាមួយមិត្តភក្តិ៖ វាយតម្លៃកន្លែងដែលអ្នកបានញ៉ាំ បង្កើតបញ្ជី ហើយមើលថាមិត្តភក្តិកំពុងតែចូលចិត្តអ្វី។",
-        nextTitle: "អ្វីដែលនឹងកើតឡើងបន្ទាប់",
-        steps: [
-            "យើងកំពុងសាកល្បងជាមួយក្រុមតូចមួយនៅភ្នំពេញសិន។",
-            "កម្មវិធីសាកល្បងនឹងបើកនៅខែវិច្ឆិកា សម្រាប់តែ iPhone ប៉ុណ្ណោះ។",
-            "យើងនឹងផ្ញើអ៊ីមែលអញ្ជើញទៅអ្នក ជាមួយតំណសម្រាប់ដំឡើងតាម TestFlight។",
+        subject: "អរគុណដែលបានចូលរួមសាកល្បង Yummers",
+        note: [
+            "សួស្តី,",
+            "អរគុណដែលបានចុះឈ្មោះសាកល្បង Yummers។ ខ្ញុំឈ្មោះ Sovithyea ហើយខ្ញុំកំពុងបង្កើត Yummers នៅទីនេះ ក្នុងទីក្រុងភ្នំពេញ៖ កម្មវិធីសម្រាប់វាយតម្លៃកន្លែងដែលអ្នកបានញ៉ាំ កត់ចំណាំកន្លែងដែលចង់ទៅលើកក្រោយ និងមើលថាមិត្តភក្តិរបស់អ្នកកំពុងញ៉ាំនៅឯណា។",
+            "យើងកំពុងសាកល្បងវាជាមួយក្រុមតូចមួយលើ iPhone សិន។ កម្មវិធីសាកល្បងនឹងបើកនៅខែវិច្ឆិកា ហើយខ្ញុំនឹងផ្ញើអ៊ីមែលអញ្ជើញទៅអ្នក ភ្លាមៗនៅពេលមានកន្លែងសម្រាប់អ្នក។",
+            "បើមានកន្លែងណាដែលអ្នកគិតថាគ្រប់គ្នាគួរតែសាកល្បង សូមឆ្លើយតបមកប្រាប់ខ្ញុំ។ ខ្ញុំអានរាល់អ៊ីមែល។",
         ],
-        button: "ចូលមើលបន្តិចមក",
-        offList: "យើងនឹងប្រើអាសយដ្ឋាននេះតែសម្រាប់កម្មវិធីសាកល្បងប៉ុណ្ណោះ។ មិនបានចុះឈ្មោះ ឬប្ដូរចិត្ត? {unsubscribe}។",
+        offList: "មិនបានចុះឈ្មោះ ឬប្ដូរចិត្ត? {unsubscribe}",
         unsubscribe: "ដកឈ្មោះខ្ញុំចេញពីបញ្ជី",
         leaveTitle: "ចាកចេញពីបញ្ជីសាកល្បង?",
         leaveText: "យើងនឹងលុបអាសយដ្ឋានអ៊ីមែលរបស់អ្នក ហើយនឹងមិនផ្ញើអ៊ីមែលទៅអ្នកទៀតទេ។",
         leftTitle: "អ្នកបានចាកចេញពីបញ្ជីហើយ។",
         leftText: "អាសយដ្ឋានអ៊ីមែលរបស់អ្នកត្រូវបានលុបហើយ។ ប្ដូរចិត្តវិញ? អ្នកអាចចុះឈ្មោះម្ដងទៀតនៅ yummersapp.com។",
-        team: "ក្រុមការងារ Yummers",
-        footer: "បង្កើតឡើងសម្រាប់ភ្នំពេញ និងចំណង់អាហាររបស់អ្នក",
-        privacy: "ឯកជនភាព",
     },
     fr: {
-        subject: "Vous êtes sur la liste de la bêta Yummers",
-        badge: "Bêta iPhone",
-        heading: "C'est noté, vous êtes sur la liste !",
-        thanks: "Merci de vous être inscrit à la bêta de Yummers.",
-        about: "Yummers est un carnet culinaire à partager : notez les endroits où vous avez mangé, faites des listes et découvrez ce que vos amis adorent.",
-        nextTitle: "La suite",
-        steps: [
-            "Nous testons d'abord avec un petit groupe à Phnom Penh.",
-            "La bêta ouvre en novembre, sur iPhone uniquement.",
-            "Nous vous enverrons une invitation par e-mail, avec un lien pour l'installer via TestFlight.",
+        subject: "Merci d'avoir rejoint la bêta Yummers",
+        note: [
+            "Bonjour,",
+            "Merci de vous être inscrit à la bêta de Yummers. Je m'appelle Sovithyea et je construis Yummers ici, à Phnom Penh : une appli pour noter les endroits où vous avez mangé, garder des listes de vos prochaines adresses et voir où mangent vos amis.",
+            "Nous la testons d'abord sur iPhone avec un petit groupe. La bêta ouvre en novembre, et je vous enverrai une invitation dès qu'il y aura une place pour vous.",
+            "S'il y a un endroit que tout le monde devrait essayer selon vous, répondez à cet e-mail pour me le dire. Je lis tous les e-mails.",
         ],
-        button: "Jetez un œil",
-        offList: "Nous n'utiliserons cette adresse que pour la bêta. Vous ne vous êtes pas inscrit, ou vous avez changé d'avis ? {unsubscribe}.",
+        offList: "Vous ne vous êtes pas inscrit, ou vous avez changé d'avis ? {unsubscribe}",
         unsubscribe: "Me retirer de la liste",
         leaveTitle: "Quitter la liste de la bêta ?",
         leaveText: "Nous supprimerons votre adresse e-mail et ne vous écrirons plus.",
         leftTitle: "C'est fait, vous n'êtes plus sur la liste.",
         leftText: "Votre adresse e-mail est supprimée. Vous avez changé d'avis ? Vous pouvez vous réinscrire sur yummersapp.com.",
-        team: "L'équipe Yummers",
-        footer: "Fait pour Phnom Penh. Et pour votre appétit.",
-        privacy: "Confidentialité",
     },
 };
 
 function confirmText(t, unsub) {
-    return `${t.heading}
+    return `${t.note.join("\n\n")}
 
-${t.thanks}
-
-${t.about}
-
-${t.nextTitle}:
-${t.steps.map((s, i) => `${i + 1}. ${s}`).join("\n")}
-
-${t.button}: https://yummersapp.com
+Sovithyea
+Yummers · https://yummersapp.com
 
 ${t.offList.replace("{unsubscribe}", `${t.unsubscribe}: ${unsub}`)}
-
-${t.team}
 `;
 }
 
-// Inline styles and tables, because email apps ignore most CSS.
+// Plain paragraphs, like a note typed in a mail app: no images, banner or button.
 function confirmHtml(t, lang, unsub) {
-    const font = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
-    const link = "color:#A83618;text-decoration:none;font-weight:600;";
-    const steps = t.steps.map((s, i) => `
-              <tr><td valign="top" width="36" style="padding:6px 0;"><div style="width:26px;height:26px;line-height:26px;border-radius:13px;background:#A83618;color:#FFFFFF;font-size:13px;font-weight:700;text-align:center;">${i + 1}</div></td>
-                <td style="padding:8px 0;font-size:15px;line-height:1.5;color:#2C2420;">${s}</td></tr>`).join("");
+    const p = (text, style = "") => `<p style="margin:0 0 16px;${style}">${text}</p>`;
+    const link = "color:#A83618;";
     return `<!doctype html>
 <html lang="${lang}">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light only">
-<meta name="supported-color-schemes" content="light only">
-<title>${t.subject}</title>
-</head>
-<body style="margin:0;padding:0;background:#F5F0E8;">
-<div style="display:none;max-height:0;overflow:hidden;opacity:0;">${t.thanks}&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F0E8;">
-  <tr><td align="center" style="padding:32px 16px;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:480px;table-layout:fixed;">
-      <tr><td align="center" style="padding-bottom:20px;">
-        <img src="https://yummersapp.com/assets/logo.png" width="64" height="64" alt="Yummers" style="display:block;border:0;border-radius:16px;">
-      </td></tr>
-      <tr><td style="background:#FFFFFF;border:1px solid #E4D9C6;border-radius:20px;overflow:hidden;font-family:${font};color:#2C2420;">
-        <img src="https://yummersapp.com/assets/share.jpg" width="480" alt="" style="display:block;width:100%;height:auto;border:0;">
-        <div style="padding:28px 28px 32px;">
-          <div style="display:inline-block;background:#FEF3EC;border:1px solid #F3D3C2;border-radius:999px;padding:4px 12px;font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:600;color:#A83618;">${t.badge}</div>
-          <h1 style="margin:14px 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.4;font-weight:700;color:#2C2420;">${t.heading}</h1>
-          <p style="margin:0 0 12px;font-size:16px;line-height:1.5;color:#2C2420;">${t.thanks}</p>
-          <p style="margin:0 0 24px;font-size:16px;line-height:1.5;color:#665A4E;">${t.about}</p>
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-            <tr><td style="background:#FEF3EC;border:1px solid #F3D3C2;border-radius:14px;padding:18px 18px 12px;">
-              <div style="font-size:13px;line-height:1;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:#A83618;padding-bottom:8px;">${t.nextTitle}</div>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${steps}
-              </table>
-            </td></tr>
-          </table>
-          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:24px 0 0;">
-            <tr><td style="background:#A83618;border-radius:999px;">
-              <a href="https://yummersapp.com" style="display:inline-block;padding:13px 24px;font-size:15px;font-weight:600;color:#FFFFFF;text-decoration:none;">${t.button} &rarr;</a>
-            </td></tr>
-          </table>
-          <p style="margin:24px 0 0;font-size:16px;line-height:1.5;color:#2C2420;">${t.team}</p>
-          <p style="margin:20px 0 0;font-size:14px;line-height:1.5;color:#8A7D70;">${t.offList.replace("{unsubscribe}", `<a href="${unsub}" style="${link}">${t.unsubscribe}</a>`)}</p>
-        </div>
-      </td></tr>
-      <tr><td align="center" style="padding:20px 8px 0;font-family:${font};font-size:13px;line-height:1.5;color:#8A7D70;">
-        Yummers · ${t.footer}<br>
-        <a href="https://yummersapp.com" style="color:#A83618;text-decoration:none;">yummersapp.com</a> · <a href="https://yummersapp.com/privacy#beta-sign-up" style="color:#A83618;text-decoration:none;">${t.privacy}</a>
-      </td></tr>
-    </table>
-  </td></tr>
-</table>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${t.subject}</title></head>
+<body style="margin:0;padding:16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;color:#2C2420;">
+<div style="max-width:560px;">
+${t.note.map(s => p(s)).join("\n")}
+${p(`Sovithyea<br>Yummers · <a href="https://yummersapp.com" style="${link}">yummersapp.com</a>`)}
+${p(t.offList.replace("{unsubscribe}", `<a href="${unsub}" style="${link}">${t.unsubscribe}</a>`), "margin-top:28px;font-size:13px;color:#8A7D70;")}
+</div>
 </body>
 </html>`;
 }
@@ -217,24 +146,20 @@ async function signup(request, env, ctx) {
         // The contact's id is the unsubscribe link's key: only this email carries it.
         const unsub = `https://yummersapp.com/api/unsubscribe?id=${id}&lang=${known ? lang : "en"}`;
         return resend("/emails", {
-            from: "Yummers <noreply@mail.yummersapp.com>",
+            from: "Sovithyea from Yummers <sovithyea@mail.yummersapp.com>",
             to: email,
             reply_to: CONTACT,
             subject: t.subject,
             html: confirmHtml(t, known ? lang : "en", unsub),
             text: confirmText(t, unsub),
-            headers: {
-                "List-Unsubscribe": `<${unsub}>, <mailto:${CONTACT}?subject=Unsubscribe>`,
-                "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
-            },
         });
     }));
     return new Response(null, { status: saved ? 204 : 502 });
 }
 
 // The confirmation email's unsubscribe link. Opening it (GET) only asks, because
-// mail scanners open links on their own; the button, or a mail app's one-click
-// Unsubscribe (RFC 8058), POSTs, which deletes the contact outright.
+// mail scanners open links on their own; the button POSTs, which deletes the
+// contact outright.
 async function unsubscribe(request, env, url) {
     const lang = url.searchParams.get("lang");
     const known = Object.hasOwn(CONFIRM, lang);
