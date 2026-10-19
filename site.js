@@ -33,3 +33,29 @@
         history.replaceState(null, "", location.pathname + location.search);
     }
 })();
+
+// Beta sign-up: sends the form to the Worker (/api/signup) and shows the
+// answer in place. The Turnstile bot check needs JavaScript anyway.
+(function () {
+    var form = document.getElementById("signup");
+    if (!form) return;
+    var error = form.querySelector(".signup-error");
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var button = form.querySelector("button");
+        button.disabled = true;
+        error.hidden = true;
+        fetch(form.action, { method: "POST", body: new FormData(form) })
+            .then(function (res) {
+                if (!res.ok) throw new Error(res.status);
+                form.querySelector(".signup-fields").hidden = true;
+                form.querySelector(".signup-done").hidden = false;
+            })
+            .catch(function () {
+                error.hidden = false;
+                button.disabled = false;
+                // A Turnstile token works once, so get a fresh one for the retry.
+                if (window.turnstile) window.turnstile.reset();
+            });
+    });
+})();
