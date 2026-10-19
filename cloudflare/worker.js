@@ -19,53 +19,142 @@ function markdown(body, status) {
 }
 
 // The confirmation a first sign-up gets, in the language the page was showing.
-// The privacy policy promises every email a way off the list, hence the
-// admin@ line and the List-Unsubscribe header. admin@ until hello@ and privacy@
-// receive mail (#42).
+// The privacy policy promises every email a way off the list, hence offList
+// and the List-Unsubscribe header. admin@ until hello@ and privacy@ receive
+// mail (#44). The layout matches the app's sign-in emails (supabase/templates).
+const CONTACT = "admin@yummersapp.com";
 const CONFIRM = {
     en: {
         subject: "You're on the Yummers beta list",
-        text: `Hi,
-
-Thanks for signing up for the Yummers beta. You're on the list!
-
-Yummers is a food diary you share with friends: rate the places you've eaten, make lists, and see what your friends are loving. We're testing it on iPhone with a small group in Phnom Penh first, and we'll email you when your invite is ready.
-
-We'll only use this address for the beta. Didn't sign up, or want off the list? Email admin@yummersapp.com and we'll take you off.
-
-The Yummers team
-https://yummersapp.com
-`,
+        badge: "iPhone beta",
+        heading: "You're on the list!",
+        thanks: "Thanks for signing up for the Yummers beta.",
+        about: "Yummers is a food diary you share with friends: rate the places you've eaten, make lists, and see what your friends are loving.",
+        nextTitle: "What happens next",
+        steps: [
+            "We're testing with a small group in Phnom Penh first.",
+            "The beta opens in November, on iPhone only.",
+            "We'll email you an invite with a link to install it through TestFlight.",
+        ],
+        button: "Take a peek inside",
+        offList: "We'll only use this address for the beta. Didn't sign up, or want off the list? Email {contact} and we'll take you off.",
+        team: "The Yummers team",
+        footer: "Made for Phnom Penh. And your appetite.",
+        privacy: "Privacy",
     },
     km: {
         subject: "អ្នកមានឈ្មោះក្នុងបញ្ជីសាកល្បង Yummers ហើយ",
-        text: `សួស្តី,
-
-អរគុណដែលបានចុះឈ្មោះសាកល្បង Yummers។ អ្នកមានឈ្មោះក្នុងបញ្ជីហើយ!
-
-Yummers ជាសៀវភៅកត់ត្រាអាហារ ដែលអាចចែករំលែកជាមួយមិត្តភក្តិ៖ វាយតម្លៃកន្លែងដែលអ្នកបានញ៉ាំ បង្កើតបញ្ជី ហើយមើលថាមិត្តភក្តិកំពុងតែចូលចិត្តអ្វី។ យើងកំពុងសាកល្បងវាលើ iPhone ជាមួយក្រុមតូចមួយនៅភ្នំពេញសិន ហើយយើងនឹងផ្ញើអ៊ីមែលទៅអ្នក នៅពេលការអញ្ជើញរបស់អ្នករួចរាល់។
-
-យើងនឹងប្រើអាសយដ្ឋាននេះតែសម្រាប់កម្មវិធីសាកល្បងប៉ុណ្ណោះ។ មិនបានចុះឈ្មោះ ឬចង់ដកឈ្មោះចេញពីបញ្ជី? សូមផ្ញើអ៊ីមែលមក admin@yummersapp.com ហើយយើងនឹងដកឈ្មោះអ្នកចេញ។
-
-ក្រុមការងារ Yummers
-https://yummersapp.com
-`,
+        badge: "សាកល្បងលើ iPhone",
+        heading: "អ្នកមានឈ្មោះក្នុងបញ្ជីហើយ!",
+        thanks: "អរគុណដែលបានចុះឈ្មោះសាកល្បង Yummers។",
+        about: "Yummers ជាសៀវភៅកត់ត្រាអាហារ ដែលអាចចែករំលែកជាមួយមិត្តភក្តិ៖ វាយតម្លៃកន្លែងដែលអ្នកបានញ៉ាំ បង្កើតបញ្ជី ហើយមើលថាមិត្តភក្តិកំពុងតែចូលចិត្តអ្វី។",
+        nextTitle: "អ្វីដែលនឹងកើតឡើងបន្ទាប់",
+        steps: [
+            "យើងកំពុងសាកល្បងជាមួយក្រុមតូចមួយនៅភ្នំពេញសិន។",
+            "កម្មវិធីសាកល្បងនឹងបើកនៅខែវិច្ឆិកា សម្រាប់តែ iPhone ប៉ុណ្ណោះ។",
+            "យើងនឹងផ្ញើអ៊ីមែលអញ្ជើញទៅអ្នក ជាមួយតំណសម្រាប់ដំឡើងតាម TestFlight។",
+        ],
+        button: "ចូលមើលបន្តិចមក",
+        offList: "យើងនឹងប្រើអាសយដ្ឋាននេះតែសម្រាប់កម្មវិធីសាកល្បងប៉ុណ្ណោះ។ មិនបានចុះឈ្មោះ ឬចង់ដកឈ្មោះចេញពីបញ្ជី? សូមផ្ញើអ៊ីមែលមក {contact} ហើយយើងនឹងដកឈ្មោះអ្នកចេញ។",
+        team: "ក្រុមការងារ Yummers",
+        footer: "បង្កើតឡើងសម្រាប់ភ្នំពេញ និងចំណង់អាហាររបស់អ្នក",
+        privacy: "ឯកជនភាព",
     },
     fr: {
         subject: "Vous êtes sur la liste de la bêta Yummers",
-        text: `Bonjour,
-
-Merci de vous être inscrit à la bêta de Yummers. C'est noté, vous êtes sur la liste !
-
-Yummers est un carnet culinaire à partager : notez les endroits où vous avez mangé, faites des listes et découvrez ce que vos amis adorent. Nous le testons d'abord sur iPhone avec un petit groupe à Phnom Penh, et nous vous écrirons dès que votre invitation sera prête.
-
-Nous n'utiliserons cette adresse que pour la bêta. Vous ne vous êtes pas inscrit, ou vous voulez quitter la liste ? Écrivez à admin@yummersapp.com et nous vous retirerons.
-
-L'équipe Yummers
-https://yummersapp.com
-`,
+        badge: "Bêta iPhone",
+        heading: "C'est noté, vous êtes sur la liste !",
+        thanks: "Merci de vous être inscrit à la bêta de Yummers.",
+        about: "Yummers est un carnet culinaire à partager : notez les endroits où vous avez mangé, faites des listes et découvrez ce que vos amis adorent.",
+        nextTitle: "La suite",
+        steps: [
+            "Nous testons d'abord avec un petit groupe à Phnom Penh.",
+            "La bêta ouvre en novembre, sur iPhone uniquement.",
+            "Nous vous enverrons une invitation par e-mail, avec un lien pour l'installer via TestFlight.",
+        ],
+        button: "Jetez un œil",
+        offList: "Nous n'utiliserons cette adresse que pour la bêta. Vous ne vous êtes pas inscrit, ou vous voulez quitter la liste ? Écrivez à {contact} et nous vous retirerons.",
+        team: "L'équipe Yummers",
+        footer: "Fait pour Phnom Penh. Et pour votre appétit.",
+        privacy: "Confidentialité",
     },
 };
+
+function confirmText(t) {
+    return `${t.heading}
+
+${t.thanks}
+
+${t.about}
+
+${t.nextTitle}:
+${t.steps.map((s, i) => `${i + 1}. ${s}`).join("\n")}
+
+${t.button}: https://yummersapp.com
+
+${t.offList.replace("{contact}", CONTACT)}
+
+${t.team}
+`;
+}
+
+// Inline styles and tables, because email apps ignore most CSS.
+function confirmHtml(t, lang) {
+    const font = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
+    const link = "color:#A83618;text-decoration:none;font-weight:600;";
+    const steps = t.steps.map((s, i) => `
+              <tr><td valign="top" width="36" style="padding:6px 0;"><div style="width:26px;height:26px;line-height:26px;border-radius:13px;background:#A83618;color:#FFFFFF;font-size:13px;font-weight:700;text-align:center;">${i + 1}</div></td>
+                <td style="padding:8px 0;font-size:15px;line-height:1.5;color:#2C2420;">${s}</td></tr>`).join("");
+    return `<!doctype html>
+<html lang="${lang}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light only">
+<title>${t.subject}</title>
+</head>
+<body style="margin:0;padding:0;background:#F5F0E8;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">${t.thanks}&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F5F0E8;">
+  <tr><td align="center" style="padding:32px 16px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:480px;table-layout:fixed;">
+      <tr><td align="center" style="padding-bottom:20px;">
+        <img src="https://yummersapp.com/assets/logo.png" width="64" height="64" alt="Yummers" style="display:block;border:0;border-radius:16px;">
+      </td></tr>
+      <tr><td style="background:#FFFFFF;border:1px solid #E4D9C6;border-radius:20px;overflow:hidden;font-family:${font};color:#2C2420;">
+        <img src="https://yummersapp.com/assets/share.jpg" width="480" alt="" style="display:block;width:100%;height:auto;border:0;">
+        <div style="padding:28px 28px 32px;">
+          <div style="display:inline-block;background:#FEF3EC;border:1px solid #F3D3C2;border-radius:999px;padding:4px 12px;font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:600;color:#A83618;">${t.badge}</div>
+          <h1 style="margin:14px 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.4;font-weight:700;color:#2C2420;">${t.heading}</h1>
+          <p style="margin:0 0 12px;font-size:16px;line-height:1.5;color:#2C2420;">${t.thanks}</p>
+          <p style="margin:0 0 24px;font-size:16px;line-height:1.5;color:#665A4E;">${t.about}</p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr><td style="background:#FEF3EC;border:1px solid #F3D3C2;border-radius:14px;padding:18px 18px 12px;">
+              <div style="font-size:13px;line-height:1;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:#A83618;padding-bottom:8px;">${t.nextTitle}</div>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${steps}
+              </table>
+            </td></tr>
+          </table>
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:24px 0 0;">
+            <tr><td style="background:#A83618;border-radius:999px;">
+              <a href="https://yummersapp.com" style="display:inline-block;padding:13px 24px;font-size:15px;font-weight:600;color:#FFFFFF;text-decoration:none;">${t.button} &rarr;</a>
+            </td></tr>
+          </table>
+          <p style="margin:24px 0 0;font-size:16px;line-height:1.5;color:#2C2420;">${t.team}</p>
+          <p style="margin:20px 0 0;font-size:14px;line-height:1.5;color:#8A7D70;">${t.offList.replace("{contact}", `<a href="mailto:${CONTACT}" style="${link}">${CONTACT}</a>`)}</p>
+        </div>
+      </td></tr>
+      <tr><td align="center" style="padding:20px 8px 0;font-family:${font};font-size:13px;line-height:1.5;color:#8A7D70;">
+        Yummers · ${t.footer}<br>
+        <a href="https://yummersapp.com" style="color:#A83618;text-decoration:none;">yummersapp.com</a> · <a href="https://yummersapp.com/privacy#beta-sign-up" style="color:#A83618;text-decoration:none;">${t.privacy}</a>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>`;
+}
 
 // The homepage's beta sign-up form. Checks the Turnstile token, saves the
 // email as a Resend contact in the beta sign-up segment, and emails a first
@@ -100,14 +189,16 @@ async function signup(request, env, ctx) {
     // The send runs after the reply, and a failed send doesn't fail the sign-up.
     if (created) {
         const lang = String(form.get("lang"));
-        const mail = Object.hasOwn(CONFIRM, lang) ? CONFIRM[lang] : CONFIRM.en;
+        const known = Object.hasOwn(CONFIRM, lang);
+        const t = known ? CONFIRM[lang] : CONFIRM.en;
         ctx.waitUntil(resend("/emails", {
             from: "Yummers <noreply@mail.yummersapp.com>",
             to: email,
-            reply_to: "admin@yummersapp.com",
-            subject: mail.subject,
-            text: mail.text,
-            headers: { "List-Unsubscribe": "<mailto:admin@yummersapp.com?subject=Unsubscribe>" },
+            reply_to: CONTACT,
+            subject: t.subject,
+            html: confirmHtml(t, known ? lang : "en"),
+            text: confirmText(t),
+            headers: { "List-Unsubscribe": `<mailto:${CONTACT}?subject=Unsubscribe>` },
         }));
     }
     return new Response(null, { status: saved ? 204 : 502 });
