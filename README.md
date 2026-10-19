@@ -1,6 +1,6 @@
 # yummersapp.com
 
-The public website for **Yummers**, a restaurant discovery app for Phnom Penh that is still in the making.
+The public website for **Yummers**, a restaurant discovery app for Cambodia that is still in the making.
 
 The app was called HungryRaccoon until October 2026 (D85). The old domain, hungryraccoonapp.com, forwards here with a Cloudflare redirect rule that keeps the path and query, so share links already sent (`/l/...`) still open (#35). The repo is `yummers-hq/yummersapp.com` (renamed from `hungryraccoon-hq/hungryraccoonapp.com`; GitHub forwards the old address).
 
