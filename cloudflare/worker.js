@@ -20,7 +20,7 @@ function markdown(body, status) {
 }
 
 // The confirmation a first sign-up gets, in the language the page was showing:
-// a short personal note from the founder, signed by hand, with the banner and
+// a short personal note from Sovithyea, crediting the team of seven (#59), signed by hand, with the banner and
 // social links in a strip at the bottom (owner, 20 Oct, #53, accepting a little
 // more risk of Gmail's Promotions tab than the 19 Oct plain note). It has no
 // List-Unsubscribe header, so Gmail treats it as personal mail; the privacy
@@ -34,8 +34,8 @@ const CONFIRM = {
         subject: "Thanks for joining the Yummers beta",
         note: [
             "Hi,",
-            "Thanks for signing up for the Yummers beta. I'm Sovithyea, and I'm building Yummers here in Cambodia: an app to rate the places you've eaten, keep lists of where to go next, and see where your friends are eating.",
-            "We're testing it with a small group on iPhone first. The beta opens in November, and I'll email you an invite as soon as there's a spot for you.",
+            "Thanks for signing up for the Yummers beta. I'm Sovithyea, one of a team of seven building Yummers for Cambodia: an app to rate the places you've eaten, keep lists of where to go next, and see where your friends are eating.",
+            "We're testing it with a small group on iPhone first. The beta opens in November, and we'll email you an invite as soon as there's a spot for you.",
             "If there's a place you think everyone should try, hit reply and tell me. I read every email.",
         ],
         regards: "Warm regards,",
@@ -64,8 +64,8 @@ const CONFIRM = {
         subject: "អរគុណដែលបានចូលរួមសាកល្បង Yummers",
         note: [
             "សួស្តី,",
-            "អរគុណដែលបានចុះឈ្មោះសាកល្បង Yummers។ ខ្ញុំឈ្មោះ Sovithyea ហើយខ្ញុំកំពុងបង្កើត Yummers នៅទីនេះ ក្នុងប្រទេសកម្ពុជា៖ កម្មវិធីសម្រាប់វាយតម្លៃកន្លែងដែលអ្នកបានញ៉ាំ កត់ចំណាំកន្លែងដែលចង់ទៅលើកក្រោយ និងមើលថាមិត្តភក្តិរបស់អ្នកកំពុងញ៉ាំនៅឯណា។",
-            "យើងកំពុងសាកល្បងវាជាមួយក្រុមតូចមួយលើ iPhone សិន។ កម្មវិធីសាកល្បងនឹងបើកនៅខែវិច្ឆិកា ហើយខ្ញុំនឹងផ្ញើអ៊ីមែលអញ្ជើញទៅអ្នក ភ្លាមៗនៅពេលមានកន្លែងសម្រាប់អ្នក។",
+            "អរគុណដែលបានចុះឈ្មោះសាកល្បង Yummers។ ខ្ញុំឈ្មោះ Sovithyea ជាសមាជិកម្នាក់ក្នុងក្រុមប្រាំពីរនាក់ ដែលកំពុងបង្កើត Yummers សម្រាប់ប្រទេសកម្ពុជា៖ កម្មវិធីសម្រាប់វាយតម្លៃកន្លែងដែលអ្នកបានញ៉ាំ កត់ចំណាំកន្លែងដែលចង់ទៅលើកក្រោយ និងមើលថាមិត្តភក្តិរបស់អ្នកកំពុងញ៉ាំនៅឯណា។",
+            "យើងកំពុងសាកល្បងវាជាមួយក្រុមតូចមួយលើ iPhone សិន។ កម្មវិធីសាកល្បងនឹងបើកនៅខែវិច្ឆិកា ហើយយើងនឹងផ្ញើអ៊ីមែលអញ្ជើញទៅអ្នក ភ្លាមៗនៅពេលមានកន្លែងសម្រាប់អ្នក។",
             "បើមានកន្លែងណាដែលអ្នកគិតថាគ្រប់គ្នាគួរតែសាកល្បង សូមឆ្លើយតបមកប្រាប់ខ្ញុំ។ ខ្ញុំអានរាល់អ៊ីមែល។",
         ],
         regards: "ដោយក្តីរាប់អាន,",
@@ -94,8 +94,8 @@ const CONFIRM = {
         subject: "Merci d'avoir rejoint la bêta Yummers",
         note: [
             "Bonjour,",
-            "Merci de vous être inscrit à la bêta de Yummers. Je m'appelle Sovithyea et je construis Yummers ici, au Cambodge : une appli pour noter les endroits où vous avez mangé, garder des listes de vos prochaines adresses et voir où mangent vos amis.",
-            "Nous la testons d'abord sur iPhone avec un petit groupe. La bêta ouvre en novembre, et je vous enverrai une invitation dès qu'il y aura une place pour vous.",
+            "Merci de vous être inscrit à la bêta de Yummers. Je m'appelle Sovithyea et je fais partie de l'équipe de sept personnes qui construit Yummers pour le Cambodge : une appli pour noter les endroits où vous avez mangé, garder des listes de vos prochaines adresses et voir où mangent vos amis.",
+            "Nous la testons d'abord sur iPhone avec un petit groupe. La bêta ouvre en novembre, et nous vous enverrons une invitation dès qu'il y aura une place pour vous.",
             "S'il y a un endroit que tout le monde devrait essayer selon vous, répondez à cet e-mail pour me le dire. Je lis tous les e-mails.",
         ],
         regards: "Bien chaleureusement,",
@@ -144,12 +144,12 @@ ${t.offList.replace("{unsubscribe}", `${t.unsubscribe}: ${unsub}`)}
 }
 
 // The note, the handwritten signature, then a cream strip with the banner, the
-// social links and the opt-out line. Images come from the site's assets. White
+// social icons (the site footer's, as PNGs, since Gmail drops SVG) and the opt-out line. Images come from the site's assets. White
 // and light-only, so the dark ink shows in a mail app's dark mode.
 function confirmHtml(t, lang, unsub) {
     const p = (text, style = "") => `<p style="margin:0 0 16px;${style}">${text}</p>`;
     const link = "color:#A83618;";
-    const socials = SOCIALS.map(([name, url]) => `<a href="${url}" style="${link}">${name}</a>`).join(" · ");
+    const socials = SOCIALS.map(([name, url]) => `<a href="${url}" style="display:inline-block;margin:0 8px;"><img src="https://yummersapp.com/assets/email-${name.toLowerCase()}.png" width="22" height="22" alt="${name}" style="display:block;border:0;"></a>`).join("");
     return `<!doctype html>
 <html lang="${lang}">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light"><title>${t.subject}</title></head>
