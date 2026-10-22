@@ -992,6 +992,11 @@ html {
     letter-spacing: -.03em
 }
 
+.legal h3 {
+    font-size: 19px;
+    margin-top: 28px
+}
+
 .legal p {
     color: var(--ink);
     font-size: 17px;
