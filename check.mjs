@@ -27,6 +27,15 @@ for (const page of ["/about", "/contact", "/privacy"]) {
     check(`${page} has 500+ characters of text`, status === 200 && text(body.split("<main")[1] || "").length >= 500);
 }
 
+// Search engines read the FAQ data; it must say exactly what the page shows.
+const about = (await get("/about")).body;
+const faqData = JSON.parse(about.match(/application\/ld\+json">([\s\S]*?)<\/script>/)[1]).mainEntity
+    .map((q) => [q.name, q.acceptedAnswer.text]);
+const faqShown = [...about.split('id="faq"')[1].split("<h2")[0].matchAll(/<h3>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/g)]
+    .map(([, q, a]) => [text(q), text(a)]);
+check("About's FAQ data matches the questions on the page",
+    faqData.length > 0 && JSON.stringify(faqData) === JSON.stringify(faqShown));
+
 const home = await get("/");
 const graph = JSON.parse(home.body.match(/application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
 const org = graph.find((x) => x["@type"] === "Organization");

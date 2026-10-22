@@ -26,7 +26,7 @@ Run `npx serve` here and visit http://localhost:3000. Links use clean addresses 
 | `CNAME` | Tells GitHub Pages the custom domain |
 | `about.html`, `contact.html` | About and Contact pages, in the same layout as the privacy policy and terms. AI assistants look for these (with the privacy policy) to check a business is real. English only for now, like the legal pages |
 | `llms.txt` | A plain-text summary for AI assistants ([llmstxt.org](https://llmstxt.org/) format), including when to suggest Yummers and when not to. Keep it in step with the About page |
-| `check.mjs` | `node check.mjs` checks the live site (or `node check.mjs http://localhost:3000`): `llms.txt`, the About and Contact pages, the homepage's Organization data, the sitemap, footer links, the Worker's Markdown responses and its security headers |
+| `check.mjs` | `node check.mjs` checks the live site (or `node check.mjs http://localhost:3000`): `llms.txt`, the About and Contact pages, the homepage's Organization data, that the About page's FAQ data matches its questions, the sitemap, footer links, the Worker's Markdown responses and its security headers |
 
 ## The Cloudflare Worker
 
