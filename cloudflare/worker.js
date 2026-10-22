@@ -25,10 +25,9 @@ function markdown(body, status) {
 // more risk of Gmail's Promotions tab than the 19 Oct plain note). It has no
 // List-Unsubscribe header, so Gmail treats it as personal mail; the privacy
 // policy's unsubscribe link is the {unsubscribe} line (see unsubscribe()).
-// Replies go to admin@ until hello@ and privacy@ receive mail (#44).
 // The verify* strings are the note that comes first, with the confirm link (#46);
 // join*, joined*, expired* and leave*/left* are the pages its links open.
-const CONTACT = "admin@yummersapp.com";
+const CONTACT = "hello@yummersapp.com";
 const CONFIRM = {
     en: {
         subject: "Thanks for joining the Yummers beta",
